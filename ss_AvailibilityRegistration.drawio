@@ -70,7 +70,7 @@
         <mxCell id="VHG9u79769D6CSE30_-v-36" value="&lt;font color=&quot;#ffffff&quot;&gt;retreive(LessonOffering)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="379" y="279" width="135" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="VHG9u79769D6CSE30_-v-37" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="VHG9u79769D6CSE30_-v-38">
+        <mxCell id="VHG9u79769D6CSE30_-v-37" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;entryX=0;entryY=1;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" target="VHG9u79769D6CSE30_-v-38">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="522" y="355" as="sourcePoint" />
             <mxPoint x="204" y="369" as="targetPoint" />
@@ -101,7 +101,7 @@
         <mxCell id="VHG9u79769D6CSE30_-v-42" value="&lt;font color=&quot;#ffffff&quot;&gt;Confirmation()&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="544.5" y="487" width="135" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="VHG9u79769D6CSE30_-v-43" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+        <mxCell id="VHG9u79769D6CSE30_-v-43" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;dashed=1;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="374" y="374" as="sourcePoint" />
             <mxPoint x="203" y="374" as="targetPoint" />
