@@ -92,7 +92,7 @@
         <mxCell id="VHG9u79769D6CSE30_-v-40" value="&lt;font color=&quot;#ffffff&quot;&gt;AvailibilityforClient(L)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="743" y="441" width="135" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="VHG9u79769D6CSE30_-v-41" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+        <mxCell id="VHG9u79769D6CSE30_-v-41" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;dashed=1;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="701.5" y="517" as="sourcePoint" />
             <mxPoint x="531" y="517" as="targetPoint" />
@@ -140,7 +140,7 @@
         <mxCell id="VHG9u79769D6CSE30_-v-51" value="&lt;font color=&quot;#ffffff&quot;&gt;Register(Instructor)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="219" y="389" width="135" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="VHG9u79769D6CSE30_-v-52" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+        <mxCell id="VHG9u79769D6CSE30_-v-52" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;dashed=1;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="529" y="533" as="sourcePoint" />
             <mxPoint x="201.25" y="530" as="targetPoint" />
