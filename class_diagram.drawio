@@ -113,13 +113,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="q92YzM6dojiJ9RE8ZQHJ-38" value="&lt;font color=&quot;#ffffff&quot;&gt;Organization/App&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fillColor=#000000;" vertex="1" parent="1">
-          <mxGeometry x="72" y="213" width="140" height="149" as="geometry" />
+          <mxGeometry x="72" y="213" width="140" height="173" as="geometry" />
         </mxCell>
         <mxCell id="q92YzM6dojiJ9RE8ZQHJ-39" value="&lt;font color=&quot;#ffffff&quot;&gt;Time Slots&lt;/font&gt;" style="text;strokeColor=#FFFFFF;fillColor=#000000;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="q92YzM6dojiJ9RE8ZQHJ-38">
           <mxGeometry y="30" width="140" height="55" as="geometry" />
         </mxCell>
-        <mxCell id="q92YzM6dojiJ9RE8ZQHJ-40" value="&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;MakeAvailable()&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;RegisterUser()&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=#FFFFFF;fillColor=#000000;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="q92YzM6dojiJ9RE8ZQHJ-38">
-          <mxGeometry y="85" width="140" height="64" as="geometry" />
+        <mxCell id="q92YzM6dojiJ9RE8ZQHJ-40" value="&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;MakeAvailable()&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;RegisterUser()&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;Register&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=#FFFFFF;fillColor=#000000;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="q92YzM6dojiJ9RE8ZQHJ-38">
+          <mxGeometry y="85" width="140" height="88" as="geometry" />
         </mxCell>
         <mxCell id="q92YzM6dojiJ9RE8ZQHJ-41" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;strokeColor=#FFFFFF;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="q92YzM6dojiJ9RE8ZQHJ-38" target="q92YzM6dojiJ9RE8ZQHJ-24">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
