@@ -93,12 +93,12 @@
         </mxCell>
         <mxCell id="t7lGf3HvKomyFUtK1q3a-28" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="367" y="182" as="sourcePoint" />
-            <mxPoint x="736" y="182" as="targetPoint" />
+            <mxPoint x="365" y="164" as="sourcePoint" />
+            <mxPoint x="734" y="164" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="t7lGf3HvKomyFUtK1q3a-29" value="&lt;font color=&quot;#ffffff&quot;&gt;ChangeOfferings()&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="513" y="152" width="60" height="30" as="geometry" />
+          <mxGeometry x="511" y="134" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="t7lGf3HvKomyFUtK1q3a-30" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -222,6 +222,15 @@
         </mxCell>
         <mxCell id="t7lGf3HvKomyFUtK1q3a-65" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;span style=&quot;background-color: rgb(0, 0, 0);&quot;&gt;End Bookings&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1121.5" y="570" width="243" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="t7lGf3HvKomyFUtK1q3a-67" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="368" y="187" as="sourcePoint" />
+            <mxPoint x="737" y="187" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t7lGf3HvKomyFUtK1q3a-68" value="&lt;font color=&quot;#ffffff&quot;&gt;Selectoffering(&lt;/font&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;Location, Timeslot, Type&lt;/span&gt;&lt;font color=&quot;#ffffff&quot;&gt;)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="158" width="243" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
