@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0" version="24.8.0">
+  <diagram name="Page-1" id="76YV1oYHXunlK0KvIBvG">
+    <mxGraphModel dx="576" dy="791" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#000000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--1" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1067" y="651" as="sourcePoint" />
+            <mxPoint x="1067" y="206" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--2" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1433" y="659" as="sourcePoint" />
+            <mxPoint x="1433" y="214" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--3" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:Administrator&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1036" y="175" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1374" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--5" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:System&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1404" y="165" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--6" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1067" y="258" as="sourcePoint" />
+            <mxPoint x="1436" y="258" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--7" value="&lt;font color=&quot;#ffffff&quot;&gt;DeleteAccount():&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1213" y="228" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--8" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1067" y="320" as="sourcePoint" />
+            <mxPoint x="1436" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--9" value="&lt;font color=&quot;#ffffff&quot;&gt;SelectAccount(User)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1129" y="291" width="243" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--10" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1431" y="371" as="sourcePoint" />
+            <mxPoint x="1066" y="371" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--11" value="&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;Account&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1126" y="341" width="243" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--12" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1067.5" y="429" as="sourcePoint" />
+            <mxPoint x="1436.5" y="429" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--13" value="&lt;font color=&quot;#ffffff&quot;&gt;ComfirmDelete(Account)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1129.5" y="400" width="243" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--14" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;dashed=1;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1429.5" y="478" as="sourcePoint" />
+            <mxPoint x="1064.5" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--15" value="&lt;font style=&quot;background-color: rgb(0, 0, 0);&quot; color=&quot;#ffffff&quot;&gt;Comfirmation&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1124.5" y="448" width="243" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--16" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1064.5" y="526" as="sourcePoint" />
+            <mxPoint x="1433.5" y="526" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="9rThWSxRKhjL5xt8Mgi--17" value="&lt;font color=&quot;#ffffff&quot;&gt;EndAccountDeletion()&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1126.5" y="497" width="243" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
