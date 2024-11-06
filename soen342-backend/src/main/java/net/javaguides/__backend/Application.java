@@ -1,13 +1,13 @@
-package net.javacode.soen342_backend;
+package net.javaguides.__backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Soen342BackendApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Soen342BackendApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }

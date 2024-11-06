@@ -1,9 +1,6 @@
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+package net.javaguides.__backend.entity;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "employees")
+
 public class User {
 
     @Id
@@ -24,12 +22,12 @@ public class User {
     @Column(name = "last_name")
     private String lastname;
 
-    @Column(name = "first_name")
+    @Column(name = "First_name")
     private String firstname;
 
     @Column(name = "email_id", nullable = false, unique = true)
     private String email;
 
     @Column(name = "age")
-    private Integer age;  
+    private int age;
 }

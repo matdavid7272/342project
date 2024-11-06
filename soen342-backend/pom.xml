@@ -8,11 +8,11 @@
 		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>net.javacode</groupId>
-	<artifactId>soen342-backend</artifactId>
+	<groupId>net.javaguides</groupId>
+	<artifactId>342_backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>soen342-backend</name>
-	<description>Backend for Lesson Offering system</description>
+	<name>342_backend</name>
+	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
