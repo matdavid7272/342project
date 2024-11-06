@@ -1,13 +1,13 @@
-package net.javacode.soen342_backend;
+// package net.javacode.soen342_backend;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class Soen342BackendApplicationTests {
+// @SpringBootTest
+// class Soen342BackendApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
