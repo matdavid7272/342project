@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "employees")
-
 public class User {
 
     @Id
@@ -30,4 +29,7 @@ public class User {
 
     @Column(name = "age")
     private int age;
+
+
+
 }
