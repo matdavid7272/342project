@@ -2,11 +2,13 @@ package net.javaguides.__backend.Mapper;
 
 import net.javaguides.__backend.dto.ClientDto;
 import net.javaguides.__backend.entity.Client;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClientMapper {
 
     // Map Client entity to ClientDto
-    public static ClientDto mapToClientDto(Client client) {
+    public ClientDto mapToClientDto(Client client) {
         return new ClientDto(
                 client.getId(),
                 client.getLastname(),
@@ -17,7 +19,7 @@ public class ClientMapper {
     }
 
     // Map ClientDto to Client entity
-    public static Client mapToClient(ClientDto clientDto) {
+    public Client mapToClient(ClientDto clientDto) {
         return new Client(
                 clientDto.getId(),
                 clientDto.getLastname(),

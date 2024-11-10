@@ -10,6 +10,7 @@ import net.javaguides.__backend.service.LessonService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,71 +18,67 @@ import java.util.stream.Collectors;
 public class LessonServiceImpl implements LessonService {
 
     private final LessonRepository lessonRepository;
+    private final LessonMapper lessonMapper;  // Inject LessonMapper
 
     @Override
     public LessonDto createLesson(LessonDto lessonDto) {
-        // Map the incoming LessonDto to Lesson entity
-        Lesson lesson = LessonMapper.mapToLesson(lessonDto);
-
-        // Save the Lesson entity
+        // Convert LessonDto to Lesson entity using injected LessonMapper
+        Lesson lesson = lessonMapper.mapToLesson(lessonDto);
+        // Save the lesson entity
         Lesson savedLesson = lessonRepository.save(lesson);
-
-        // Return the saved Lesson as a LessonDto
-        return LessonMapper.mapToLessonDto(savedLesson);
+        // Convert saved lesson back to DTO
+        return lessonMapper.mapToLessonDto(savedLesson);
     }
 
     @Override
     public LessonDto getLessonById(Long lessonId) {
-        // Find the Lesson by ID
-        Lesson lesson = lessonRepository.findById(lessonId);
-        if (lesson == null) {
+        // Try to find the lesson by ID
+        Optional<Lesson> lessonOptional = lessonRepository.findById(lessonId);
+        if (!lessonOptional.isPresent()) {
+            // Handle case where lesson is not found
             throw new ResourceNotFoundException("Lesson with id " + lessonId + " does not exist");
         }
-        // Map and return the Lesson as a LessonDto
-        return LessonMapper.mapToLessonDto(lesson);
+        Lesson lesson = lessonOptional.get();
+        return lessonMapper.mapToLessonDto(lesson);
     }
 
     @Override
-    public void deleteLesson(Long lessonId) {
-        // Find the Lesson by ID
-        Lesson lesson = lessonRepository.findById(lessonId);
-        if (lesson == null) {
-            throw new ResourceNotFoundException("Lesson with id " + lessonId + " does not exist");
+    public void deleteLesson(Long id) {
+        // Try to find the lesson by ID
+        Optional<Lesson> lessonOptional = lessonRepository.findById(id);
+        if (!lessonOptional.isPresent()) {
+            // Handle case where lesson is not found
+            throw new ResourceNotFoundException("Lesson with id " + id + " does not exist");
         }
-
-        // Try deleting the lesson
-        boolean deleted = lessonRepository.deleteLesson(lessonId); // Assuming deleteLesson returns true if deleted
-        if (!deleted) {
-            throw new ResourceNotFoundException("Lesson with id " + lessonId + " could not be deleted");
-        }
+        // Delete the found lesson
+        lessonRepository.delete(lessonOptional.get());
     }
 
     @Override
-    public LessonDto updateLesson(Long lessonId, LessonDto updatedLessonDto) {
-        // Find the existing Lesson by ID
-        Lesson existingLesson = lessonRepository.findById(lessonId);
-        if (existingLesson == null) {
-            throw new ResourceNotFoundException("Lesson with id " + lessonId + " does not exist");
+    public LessonDto updateLesson(Long id, LessonDto updatedLessonDto) {
+        // Try to find the lesson by ID
+        Optional<Lesson> existingLessonOptional = lessonRepository.findById(id);
+        if (!existingLessonOptional.isPresent()) {
+            // Handle case where lesson is not found
+            throw new ResourceNotFoundException("Lesson with id " + id + " does not exist");
         }
 
-        // Map the updated LessonDto to a Lesson entity
-        Lesson updatedLesson = LessonMapper.mapToLesson(updatedLessonDto);
+        // Convert updated DTO to entity using injected LessonMapper
+        Lesson updatedLesson = lessonMapper.mapToLesson(updatedLessonDto);
+        updatedLesson.setId(id);  // Ensure the updated lesson has the correct ID
 
-        // Save the updated Lesson
-        Lesson savedLesson = lessonRepository.editLesson(lessonId, updatedLesson);  // Assuming editLesson updates and returns the updated lesson
-
-        // Return the updated Lesson as a LessonDto
-        return LessonMapper.mapToLessonDto(savedLesson);
+        // Save the updated lesson
+        Lesson savedLesson = lessonRepository.save(updatedLesson);
+        return lessonMapper.mapToLessonDto(savedLesson);
     }
 
     @Override
     public List<LessonDto> getAllLessons() {
-        // Fetch all Lessons from the repository
+        // Get all lessons from the repository
         List<Lesson> lessons = lessonRepository.findAll();
-
-        // Convert each Lesson entity to LessonDto and return as a list
+        // Convert lessons to DTOs and return as a list
         return lessons.stream()
-                .map(LessonMapper::mapToLessonDto)  // Convert each Lesson to LessonDto
+                .map(lessonMapper::mapToLessonDto)
                 .collect(Collectors.toList());
     }
 }

@@ -3,7 +3,7 @@ package net.javaguides.__backend.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguides.__backend.dto.OfferingDto;
 import net.javaguides.__backend.entity.Offering;
-import net.javaguides.__backend.Mapper.OfferingMapper; // Assuming you have an OfferingMapper for conversion
+import net.javaguides.__backend.Mapper.OfferingMapper;
 import net.javaguides.__backend.exception.ResourceNotFoundException;
 import net.javaguides.__backend.repository.OfferingRepository;
 import net.javaguides.__backend.service.OfferingService;
@@ -18,15 +18,16 @@ import java.util.stream.Collectors;
 public class OfferingServiceImpl implements OfferingService {
 
     private final OfferingRepository offeringRepository;
+    private final OfferingMapper offeringMapper;  // Inject OfferingMapper
 
     @Override
     public OfferingDto createOffering(OfferingDto offeringDto) {
-        // Convert OfferingDto to Offering entity
-        Offering offering = OfferingMapper.mapToOffering(offeringDto);
+        // Convert OfferingDto to Offering entity using injected OfferingMapper
+        Offering offering = offeringMapper.mapToOffering(offeringDto);
         // Save the offering entity
         Offering savedOffering = offeringRepository.save(offering);
         // Convert saved offering back to DTO
-        return OfferingMapper.mapToOfferingDto(savedOffering);
+        return offeringMapper.mapToOfferingDto(savedOffering);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class OfferingServiceImpl implements OfferingService {
             throw new ResourceNotFoundException("Offering with id " + offeringId + " does not exist");
         }
         Offering offering = offeringOptional.get();
-        return OfferingMapper.mapToOfferingDto(offering);
+        return offeringMapper.mapToOfferingDto(offering);
     }
 
     @Override
@@ -62,13 +63,13 @@ public class OfferingServiceImpl implements OfferingService {
             throw new ResourceNotFoundException("Offering with id " + id + " does not exist");
         }
 
-        // Convert updated DTO to entity
-        Offering updatedOffering = OfferingMapper.mapToOffering(updatedOfferingDto);
+        // Convert updated DTO to entity using injected OfferingMapper
+        Offering updatedOffering = offeringMapper.mapToOffering(updatedOfferingDto);
         updatedOffering.setId(id);  // Ensure the updated offering has the correct ID
 
         // Save the updated offering
         Offering savedOffering = offeringRepository.save(updatedOffering);
-        return OfferingMapper.mapToOfferingDto(savedOffering);
+        return offeringMapper.mapToOfferingDto(savedOffering);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class OfferingServiceImpl implements OfferingService {
         List<Offering> offerings = offeringRepository.findAll();
         // Convert offerings to DTOs and return as a list
         return offerings.stream()
-                .map(OfferingMapper::mapToOfferingDto)
+                .map(offeringMapper::mapToOfferingDto)
                 .collect(Collectors.toList());
     }
 }

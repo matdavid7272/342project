@@ -2,11 +2,13 @@ package net.javaguides.__backend.Mapper;
 
 import net.javaguides.__backend.dto.GuardianDto;
 import net.javaguides.__backend.entity.Guardian;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GuardianMapper {
 
     // Map Guardian entity to GuardianDto
-    public static GuardianDto mapToGuardianDto(Guardian guardian) {
+    public GuardianDto mapToGuardianDto(Guardian guardian) {
         return new GuardianDto(
                 guardian.getId(),
                 guardian.getLastname(),
@@ -17,7 +19,7 @@ public class GuardianMapper {
     }
 
     // Map GuardianDto to Guardian entity
-    public static Guardian mapToGuardian(GuardianDto guardianDto) {
+    public Guardian mapToGuardian(GuardianDto guardianDto) {
         return new Guardian(
                 guardianDto.getId(),
                 guardianDto.getLastname(),

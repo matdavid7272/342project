@@ -2,11 +2,13 @@ package net.javaguides.__backend.Mapper;
 
 import net.javaguides.__backend.dto.InstructorDto;
 import net.javaguides.__backend.entity.Instructor;
+import org.springframework.stereotype.Component;
 
+@Component
 public class InstructorMapper {
 
     // Map Instructor entity to InstructorDto
-    public static InstructorDto mapToInstructorDto(Instructor instructor) {
+    public InstructorDto mapToInstructorDto(Instructor instructor) {
         return new InstructorDto(
                 instructor.getId(),
                 instructor.getLastname(),
@@ -18,7 +20,7 @@ public class InstructorMapper {
     }
 
     // Map InstructorDto to Instructor entity
-    public static Instructor mapToInstructor(InstructorDto instructorDto) {
+    public Instructor mapToInstructor(InstructorDto instructorDto) {
         // Use the Instructor constructor with super() call to initialize User fields
         return new Instructor(
                 instructorDto.getId(),

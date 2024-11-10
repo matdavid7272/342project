@@ -15,6 +15,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleDuplicateEmailException(DuplicateKeyException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email already exists");
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
 //    @ExceptionHandler(DuplicateEmailException.class)
 //    @ResponseStatus(HttpStatus.CONFLICT)  // Set HTTP 409 Conflict for duplicate email

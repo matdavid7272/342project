@@ -1,5 +1,6 @@
 package net.javaguides.__backend.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,7 @@ public class LessonDto {
     private Long id;
     private String name;
     private int duration;
-    private boolean isGroup;
+
+    @Column(name = "is_group") // Ensure the field name matches the entity column name
+    private boolean isGroup;  // Change to match entity class
 }

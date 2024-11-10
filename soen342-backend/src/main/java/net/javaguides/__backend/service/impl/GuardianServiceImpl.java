@@ -10,6 +10,7 @@ import net.javaguides.__backend.service.GuardianService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,60 +18,81 @@ import java.util.stream.Collectors;
 public class GuardianServiceImpl implements GuardianService {
 
     private final GuardianRepository guardianRepository;
+    private final GuardianMapper guardianMapper;  // Inject GuardianMapper
 
     @Override
     public GuardianDto createGuardian(GuardianDto guardianDto) {
-        Guardian guardian = GuardianMapper.mapToGuardian(guardianDto);
+        // Check if a guardian with the same email already exists
+        Optional<Guardian> existingGuardian = guardianRepository.findByEmail(guardianDto.getEmail());
+        if (existingGuardian.isPresent()) {
+            // If email exists, throw a custom exception
+            throw new ResourceNotFoundException("Email Duplicate");
+        }
+
+        // Convert GuardianDto to Guardian entity using injected GuardianMapper
+        Guardian guardian = guardianMapper.mapToGuardian(guardianDto);
+
+        // Save the guardian entity
         Guardian savedGuardian = guardianRepository.save(guardian);
-        return GuardianMapper.mapToGuardianDto(savedGuardian);
+
+        // Convert saved guardian back to DTO
+        return guardianMapper.mapToGuardianDto(savedGuardian);
     }
 
     @Override
     public GuardianDto getGuardianById(Long guardianId) {
-        Guardian guardian = guardianRepository.findById(guardianId);
-        if (guardian == null) {
+        // Try to find the guardian by ID
+        Optional<Guardian> guardianOptional = guardianRepository.findById(guardianId);
+        if (!guardianOptional.isPresent()) {
+            // Handle case where guardian is not found
             throw new ResourceNotFoundException("Guardian with id " + guardianId + " does not exist");
         }
-        return GuardianMapper.mapToGuardianDto(guardian);
+        Guardian guardian = guardianOptional.get();
+        return guardianMapper.mapToGuardianDto(guardian);
     }
 
     @Override
     public void deleteGuardian(Long id) {
-        Guardian guardian = guardianRepository.findById(id);
-        if (guardian == null) {
+        // Try to find the guardian by ID
+        Optional<Guardian> guardianOptional = guardianRepository.findById(id);
+        if (!guardianOptional.isPresent()) {
+            // Handle case where guardian is not found
             throw new ResourceNotFoundException("Guardian with id " + id + " does not exist");
         }
-
-        boolean deleted = guardianRepository.deleteGuardian(id);
-        if (!deleted) {
-            throw new ResourceNotFoundException("Guardian with id " + id + " could not be deleted");
-        }
+        // Delete the found guardian
+        guardianRepository.delete(guardianOptional.get());
     }
 
     @Override
     public GuardianDto updateGuardian(Long id, GuardianDto updatedGuardianDto) {
-        Guardian existingGuardian = guardianRepository.findById(id);
-        if (existingGuardian == null) {
+        // Try to find the guardian by ID
+        Optional<Guardian> existingGuardianOptional = guardianRepository.findById(id);
+        if (!existingGuardianOptional.isPresent()) {
             throw new ResourceNotFoundException("Guardian with id " + id + " does not exist");
         }
 
-        Guardian updatedGuardian = GuardianMapper.mapToGuardian(updatedGuardianDto);
+        // Check if another guardian with the same email exists (excluding the current one)
+        Optional<Guardian> guardianWithSameEmail = guardianRepository.findByEmail(updatedGuardianDto.getEmail());
+        if (guardianWithSameEmail.isPresent() && !guardianWithSameEmail.get().getId().equals(id)) {
+            throw new ResourceNotFoundException("Email Duplicate");
+        }
 
-        // Update guardian details
-        existingGuardian.setFirstname(updatedGuardian.getFirstname());
-        existingGuardian.setLastname(updatedGuardian.getLastname());
-        existingGuardian.setEmail(updatedGuardian.getEmail());
-        existingGuardian.setAge(updatedGuardian.getAge());
+        // Convert updated DTO to entity using injected GuardianMapper
+        Guardian updatedGuardian = guardianMapper.mapToGuardian(updatedGuardianDto);
+        updatedGuardian.setId(id);
 
-        Guardian savedGuardian = guardianRepository.editGuardian(id, existingGuardian);  // Assuming editGuardian saves and returns updated guardian
-        return GuardianMapper.mapToGuardianDto(savedGuardian);
+        // Save the updated guardian
+        Guardian savedGuardian = guardianRepository.save(updatedGuardian);
+        return guardianMapper.mapToGuardianDto(savedGuardian);
     }
 
     @Override
     public List<GuardianDto> getAllGuardians() {
+        // Get all guardians from the repository
         List<Guardian> guardians = guardianRepository.findAll();
+        // Convert guardians to DTOs and return as a list
         return guardians.stream()
-                .map(GuardianMapper::mapToGuardianDto)
+                .map(guardianMapper::mapToGuardianDto)
                 .collect(Collectors.toList());
     }
 }

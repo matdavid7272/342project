@@ -11,7 +11,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/timeslots")
+@RequestMapping("/api/time_slots")
 public class TimeSlotController {
 
     private TimeSlotService timeSlotService;

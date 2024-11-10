@@ -10,6 +10,7 @@ import net.javaguides.__backend.service.ClientService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,60 +18,81 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;  // Inject ClientMapper
 
     @Override
     public ClientDto createClient(ClientDto clientDto) {
-        Client client = ClientMapper.mapToClient(clientDto);
+        // Check if a client with the same email already exists
+        Optional<Client> existingClient = clientRepository.findByEmail(clientDto.getEmail());
+        if (existingClient.isPresent()) {
+            // If email exists, throw a custom exception
+            throw new ResourceNotFoundException("Email Duplicate");
+        }
+
+        // Convert ClientDto to Client entity using injected ClientMapper
+        Client client = clientMapper.mapToClient(clientDto);
+
+        // Save the client entity
         Client savedClient = clientRepository.save(client);
-        return ClientMapper.mapToClientDto(savedClient);
+
+        // Convert saved client back to DTO
+        return clientMapper.mapToClientDto(savedClient);
     }
 
     @Override
     public ClientDto getClientById(Long clientId) {
-        Client client = clientRepository.findById(clientId);
-        if (client == null) {
+        // Try to find the client by ID
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        if (!clientOptional.isPresent()) {
+            // Handle case where client is not found
             throw new ResourceNotFoundException("Client with id " + clientId + " does not exist");
         }
-        return ClientMapper.mapToClientDto(client);
+        Client client = clientOptional.get();
+        return clientMapper.mapToClientDto(client);
     }
 
     @Override
     public void deleteClient(Long id) {
-        Client client = clientRepository.findById(id);
-        if (client == null) {
+        // Try to find the client by ID
+        Optional<Client> clientOptional = clientRepository.findById(id);
+        if (!clientOptional.isPresent()) {
+            // Handle case where client is not found
             throw new ResourceNotFoundException("Client with id " + id + " does not exist");
         }
-
-        boolean deleted = clientRepository.deleteClient(id);
-        if (!deleted) {
-            throw new ResourceNotFoundException("Client with id " + id + " could not be deleted");
-        }
+        // Delete the found client
+        clientRepository.delete(clientOptional.get());
     }
 
     @Override
     public ClientDto updateClient(Long id, ClientDto updatedClientDto) {
-        Client existingClient = clientRepository.findById(id);
-        if (existingClient == null) {
+        // Try to find the client by ID
+        Optional<Client> existingClientOptional = clientRepository.findById(id);
+        if (!existingClientOptional.isPresent()) {
             throw new ResourceNotFoundException("Client with id " + id + " does not exist");
         }
 
-        Client updatedClient = ClientMapper.mapToClient(updatedClientDto);
+        // Check if another client with the same email exists (excluding the current one)
+        Optional<Client> clientWithSameEmail = clientRepository.findByEmail(updatedClientDto.getEmail());
+        if (clientWithSameEmail.isPresent() && !clientWithSameEmail.get().getId().equals(id)) {
+            throw new ResourceNotFoundException("Email Duplicate");
+        }
 
-        // Update client details
-        existingClient.setFirstname(updatedClient.getFirstname());
-        existingClient.setLastname(updatedClient.getLastname());
-        existingClient.setEmail(updatedClient.getEmail());
-        existingClient.setAge(updatedClient.getAge());
+        // Convert updated DTO to entity using injected ClientMapper
+        Client updatedClient = clientMapper.mapToClient(updatedClientDto);
+        updatedClient.setId(id);
 
-        Client savedClient = clientRepository.editClient(id, existingClient);  // Assuming editClient saves and returns updated client
-        return ClientMapper.mapToClientDto(savedClient);
+        // Save the updated client
+        Client savedClient = clientRepository.save(updatedClient);
+        return clientMapper.mapToClientDto(savedClient);
     }
 
     @Override
     public List<ClientDto> getAllClients() {
+        // Get all clients from the repository
         List<Client> clients = clientRepository.findAll();
+        // Convert clients to DTOs and return as a list
         return clients.stream()
-                .map(ClientMapper::mapToClientDto)
+                .map(clientMapper::mapToClientDto)
                 .collect(Collectors.toList());
     }
 }

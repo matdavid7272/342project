@@ -2,11 +2,13 @@ package net.javaguides.__backend.Mapper;
 
 import net.javaguides.__backend.dto.AdministratorDto;
 import net.javaguides.__backend.entity.Administrator;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AdministratorMapper {
 
     // Map Administrator entity to AdministratorDto
-    public static AdministratorDto mapToAdministratorDto(Administrator administrator) {
+    public AdministratorDto mapToAdministratorDto(Administrator administrator) {
         return new AdministratorDto(
                 administrator.getId(),
                 administrator.getLastname(),
@@ -17,7 +19,7 @@ public class AdministratorMapper {
     }
 
     // Map AdministratorDto to Administrator entity
-    public static Administrator mapToAdministrator(AdministratorDto administratorDto) {
+    public Administrator mapToAdministrator(AdministratorDto administratorDto) {
         return new Administrator(
                 administratorDto.getId(),
                 administratorDto.getLastname(),
