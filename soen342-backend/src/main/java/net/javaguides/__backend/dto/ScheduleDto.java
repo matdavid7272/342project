@@ -14,6 +14,6 @@ import java.util.List;
 public class ScheduleDto {
 
     private Long id;
-    private List<TimeSlotDto> timeSlots;
-
+    private List<Long> timeSlotIds;    // List of TimeSlot IDs
+    private Long locationId;           // The ID of the associated Location
 }

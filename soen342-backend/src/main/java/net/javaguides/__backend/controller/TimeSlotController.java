@@ -11,43 +11,43 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/time_slot") // Changed to "/api/timeSlots" for TimeSlot resources
+@RequestMapping("/api/timeslots")
 public class TimeSlotController {
 
     private TimeSlotService timeSlotService;
 
-    // Build add REST API for TimeSlot
+    // Build add TimeSlot REST API
     @PostMapping
-    public ResponseEntity<TimeSlotDto> createTimeSlot(@RequestBody TimeSlotDto timeSlotDto){
+    public ResponseEntity<TimeSlotDto> createTimeSlot(@RequestBody TimeSlotDto timeSlotDto) {
         TimeSlotDto savedTimeSlot = timeSlotService.createTimeSlot(timeSlotDto);
         return new ResponseEntity<>(savedTimeSlot, HttpStatus.CREATED);
     }
 
-    // Build get TimeSlot by ID
+    // Build get TimeSlot by ID REST API
     @GetMapping("{id}")
-    public ResponseEntity<TimeSlotDto> getTimeSlotById(@PathVariable("id") Long timeSlotId){
+    public ResponseEntity<TimeSlotDto> getTimeSlotById(@PathVariable("id") Long timeSlotId) {
         TimeSlotDto timeSlotDto = timeSlotService.getTimeSlotById(timeSlotId);
         return ResponseEntity.ok(timeSlotDto);
     }
 
-    // Get all TimeSlots
+    // Get all TimeSlots REST API
     @GetMapping
     public ResponseEntity<List<TimeSlotDto>> getAllTimeSlots() {
         List<TimeSlotDto> timeSlots = timeSlotService.getAllTimeSlots();
         return ResponseEntity.ok(timeSlots);
     }
 
-    // Delete TimeSlot by ID
+    // Delete TimeSlot by ID REST API
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteTimeSlot(@PathVariable("id") Long timeSlotId) {
         timeSlotService.deleteTimeSlot(timeSlotId);
         return ResponseEntity.noContent().build();
     }
 
-    // Update TimeSlot
+    // Update TimeSlot by ID REST API
     @PutMapping("{id}")
     public ResponseEntity<TimeSlotDto> updateTimeSlot(@PathVariable("id") Long timeSlotId,
-                                                      @RequestBody TimeSlotDto updatedTimeSlot){
+                                                      @RequestBody TimeSlotDto updatedTimeSlot) {
         TimeSlotDto timeSlotDto = timeSlotService.updateTimeSlot(timeSlotId, updatedTimeSlot);
         return ResponseEntity.ok(timeSlotDto);
     }

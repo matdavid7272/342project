@@ -9,9 +9,10 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocationDto {
+public class LessonDto {
 
     private Long id;
     private String name;
-    private String city;
+    private int duration;
+    private boolean isGroup;
 }

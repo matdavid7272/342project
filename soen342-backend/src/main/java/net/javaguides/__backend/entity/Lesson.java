@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "locations")
-public class Location {
+@Table(name = "lessons")
+public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +21,9 @@ public class Location {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "duration")
+    private int duration;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "location")
-    private Schedule schedule;
+    @Column(name = "is_group")
+    private boolean isGroup;
 }

@@ -11,40 +11,40 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/schedule")
+@RequestMapping("/api/schedules")
 public class ScheduleController {
 
-    private final ScheduleService scheduleService;
+    private ScheduleService scheduleService;
 
-    // Add a new schedule
+    // Build add Schedule REST API
     @PostMapping
     public ResponseEntity<ScheduleDto> createSchedule(@RequestBody ScheduleDto scheduleDto) {
         ScheduleDto savedSchedule = scheduleService.createSchedule(scheduleDto);
         return new ResponseEntity<>(savedSchedule, HttpStatus.CREATED);
     }
 
-    // Get a schedule by ID
+    // Build get Schedule by ID REST API
     @GetMapping("{id}")
     public ResponseEntity<ScheduleDto> getScheduleById(@PathVariable("id") Long scheduleId) {
         ScheduleDto scheduleDto = scheduleService.getScheduleById(scheduleId);
         return ResponseEntity.ok(scheduleDto);
     }
 
-    // Get all schedules
+    // Get all Schedules REST API
     @GetMapping
     public ResponseEntity<List<ScheduleDto>> getAllSchedules() {
         List<ScheduleDto> schedules = scheduleService.getAllSchedules();
         return ResponseEntity.ok(schedules);
     }
 
-    // Delete a schedule by ID
+    // Delete Schedule by ID REST API
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable("id") Long scheduleId) {
         scheduleService.deleteSchedule(scheduleId);
         return ResponseEntity.noContent().build();
     }
 
-    // Update a schedule by ID
+    // Update Schedule by ID REST API
     @PutMapping("{id}")
     public ResponseEntity<ScheduleDto> updateSchedule(@PathVariable("id") Long scheduleId,
                                                       @RequestBody ScheduleDto updatedSchedule) {

@@ -56,10 +56,7 @@ public class UserServiceImpl implements UserService {
 
         // Map updatedUserDto to User object and set fields in existingUser
         User updatedUser = UserMapper.mapToUser(updatedUserDto);
-//        existingUser.setFirstname(updatedUser.getFirstname());
-//        existingUser.setLastname(updatedUser.getLastname());
-//        existingUser.setEmail(updatedUser.getEmail());
-//        existingUser.setAge(updatedUser.getAge());
+
     //can maybe put saveUser
         User savedUser = userRepository.editUser(id, updatedUser);  // Assuming editUser saves and returns updated user
         return UserMapper.mapToUserDto(savedUser);

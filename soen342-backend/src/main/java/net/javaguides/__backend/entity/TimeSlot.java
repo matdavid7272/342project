@@ -13,12 +13,15 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "time_slot")
+@Table(name = "time_slots")
 public class TimeSlot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "day")
+    private String day;
 
     @Column(name = "start_time")
     private LocalTime startTime;
@@ -26,8 +29,8 @@ public class TimeSlot {
     @Column(name = "end_time")
     private LocalTime endTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id")  // Foreign key to Schedule
-    private Schedule schedule;  // Reference to the Schedule entity
-
+    // A TimeSlot belongs to one Schedule
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 }

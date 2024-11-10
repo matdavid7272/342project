@@ -16,38 +16,38 @@ public class LocationController {
 
     private LocationService locationService;
 
-    // Create location
+    // Build add Location REST API
     @PostMapping
-    public ResponseEntity<LocationDto> createLocation(@RequestBody LocationDto locationDto){
-        LocationDto saveLocation = locationService.createLocation(locationDto);
-        return new ResponseEntity<>(saveLocation, HttpStatus.CREATED);
+    public ResponseEntity<LocationDto> createLocation(@RequestBody LocationDto locationDto) {
+        LocationDto savedLocation = locationService.createLocation(locationDto);
+        return new ResponseEntity<>(savedLocation, HttpStatus.CREATED);
     }
 
-    // Get location by ID
+    // Build get Location by ID REST API
     @GetMapping("{id}")
-    public ResponseEntity<LocationDto> getLocationById(@PathVariable("id") Long locationId){
+    public ResponseEntity<LocationDto> getLocationById(@PathVariable("id") Long locationId) {
         LocationDto locationDto = locationService.getLocationById(locationId);
         return ResponseEntity.ok(locationDto);
     }
 
-    // Get all locations
+    // Get all Locations REST API
     @GetMapping
     public ResponseEntity<List<LocationDto>> getAllLocations() {
         List<LocationDto> locations = locationService.getAllLocations();
         return ResponseEntity.ok(locations);
     }
 
-    // Delete location by ID
+    // Delete Location by ID REST API
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteLocation(@PathVariable("id") Long locationId) {
         locationService.deleteLocation(locationId);
         return ResponseEntity.noContent().build();
     }
 
-    // Update location by ID
+    // Update Location by ID REST API
     @PutMapping("{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable("id") Long locationId,
-                                                      @RequestBody LocationDto updatedLocation){
+                                                      @RequestBody LocationDto updatedLocation) {
         LocationDto locationDto = locationService.updateLocation(locationId, updatedLocation);
         return ResponseEntity.ok(locationDto);
     }

@@ -11,19 +11,21 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "locations")
-public class Location {
+@Table(name = "bookings")
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
-    @Column(name = "city")
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "offering_id")
+    private Offering offering;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "location")
-    private Schedule schedule;
+    @Column(name = "is_active")
+    private boolean isActive;
 }
