@@ -38,7 +38,7 @@ public class OfferingMapper {
                 offering.getInstructor() != null ? offering.getInstructor().getId() : null,
                 offering.getTimeSlot() != null ? offering.getTimeSlot().getId() : null,
                 offering.getLocation() != null ? offering.getLocation().getId() : null,
-                offering.isva
+                offering.isAvailable()
         );
     }
 
