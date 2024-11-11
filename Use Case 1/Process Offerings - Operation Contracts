@@ -1,8 +1,8 @@
 Contract:
 
-Operation:ChangeOfferings
+Operation:SelectOfferings
 Cross Reference: ssd_ProcessOfferings
-Preconditions:A administrator is trying to edit/read the offerings db
+Preconditions:A user is trying to read a offering
 
 Postconditions:
 -The administrator can view an offering
@@ -42,7 +42,7 @@ Contract:
 
 Operation: SelectOffering
 Cross Reference:   ssd_ProcessOfferings
-Preconditions: Instructor wishes to view Offering
+Preconditions: Instructor/Administrator wishes to view Offering
 
 Postconditions:
 
@@ -59,4 +59,25 @@ Postconditions:
 
 Instructor is Added to offering as an Instructor
 Offering is set to available for clients to view and select
+
+
+Contract:
+
+Operation: EndSession
+Cross Reference:   ssd_ProcessOfferings
+Preconditions: User wishes to stop interacting with Offerings
+
+Postconditions:
+
+No more offerings are displayed
+
+Contract:
+
+Operation: OfferingMangement
+Cross Reference:   ssd_ProcessOfferings
+Preconditions: User wishes to interact with Offerings db
+
+Postconditions:
+
+User can now try to do something with Offerings db
 
