@@ -15,5 +15,6 @@ public class OfferingDto {
     private Long lessonId;       // The ID of the associated Lesson
     private Long instructorId;   // The ID of the associated Instructor
     private Long timeSlotId;     // The ID of the associated TimeSlot
+    private Long locationId;     // The ID of the associated Location
     private boolean isAvailable;
 }

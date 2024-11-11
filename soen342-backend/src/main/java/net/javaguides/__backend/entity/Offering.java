@@ -30,6 +30,10 @@ public class Offering {
     @JoinColumn(name = "time_slot_id")
     private TimeSlot timeSlot;
 
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
     @Column(name = "is_available")
     private boolean isAvailable;
 }
