@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Scanner;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "net.javaguides.__backend")
 public class Application implements CommandLineRunner {
 
 	private final SystemService systemService;
@@ -21,8 +21,8 @@ public class Application implements CommandLineRunner {
 	}
 
 	public void run(String... args) {
-		Scanner scanner = new Scanner(System.in);
 		while (true) {
+			Scanner scanner = new Scanner(System.in);
 			System.out.println("===== Main Menu =====");
 			System.out.println("1. View Available Lessons");
 			System.out.println("2. Client Menu");
@@ -35,13 +35,34 @@ public class Application implements CommandLineRunner {
 
 			switch (option) {
 				case 1 -> systemService.displayAllLessons();
+				case 2 -> clientMenu(scanner);
 				case 5 -> {
 					System.out.println("Exiting...");
 					scanner.close();
-					return;
+					System.exit(option);
+					;
 				}
 				default -> System.out.println("Invalid choice. Please try again.");
 			}
+		}
+	}
+
+	private void clientMenu(Scanner scanner) {
+		System.out.println("===== Client Menu =====");
+		System.out.println("1. Register as New Client");
+		System.out.println("2. View Available Offerings");
+		System.out.println("3. Make a Booking");
+		System.out.println("4. View My Bookings");
+		System.out.println("5. Cancel a Booking");
+		System.out.println("6. Return to Main Menu");
+
+		int option = scanner.nextInt();
+		scanner.nextLine();
+
+		switch (option) {
+			case 1 -> systemService.registerClient(scanner);
+			case 6 -> System.out.println("Returning to Main Menu");
+			default -> System.out.println("Invalid choice. Please try again.");
 		}
 	}
 }

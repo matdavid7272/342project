@@ -14,8 +14,7 @@ public class ClientMapper {
                 client.getLastname(),
                 client.getFirstname(),
                 client.getEmail(),
-                client.getAge()
-        );
+                client.getAge());
     }
 
     // Map ClientDto to Client entity
@@ -25,7 +24,6 @@ public class ClientMapper {
                 clientDto.getLastname(),
                 clientDto.getFirstname(),
                 clientDto.getEmail(),
-                clientDto.getAge()
-        );
+                clientDto.getAge());
     }
 }
