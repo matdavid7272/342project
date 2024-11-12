@@ -61,6 +61,7 @@ public class Application implements CommandLineRunner {
 
 		switch (option) {
 			case 1 -> systemService.registerClient(scanner);
+			case 2 -> systemService.displayActiveOfferings();
 			case 6 -> System.out.println("Returning to Main Menu");
 			default -> System.out.println("Invalid choice. Please try again.");
 		}

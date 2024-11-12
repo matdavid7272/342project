@@ -2,13 +2,28 @@ package net.javaguides.__backend;
 
 import net.javaguides.__backend.controller.LessonController;
 import net.javaguides.__backend.dto.LessonDto;
+import net.javaguides.__backend.dto.LocationDto;
+import net.javaguides.__backend.dto.OfferingDto;
+import net.javaguides.__backend.dto.TimeSlotDto;
+import net.javaguides.__backend.entity.Instructor;
+import net.javaguides.__backend.entity.Lesson;
+import net.javaguides.__backend.entity.TimeSlot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
 import net.javaguides.__backend.dto.ClientDto;
+import net.javaguides.__backend.dto.InstructorDto;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.RestTemplate;
 import net.javaguides.__backend.service.ClientService;
+import net.javaguides.__backend.service.OfferingService;
+import net.javaguides.__backend.service.LessonService;
+import net.javaguides.__backend.service.InstructorService;
+import net.javaguides.__backend.service.TimeSlotService;
+import net.javaguides.__backend.service.LocationService;
+import net.javaguides.__backend.entity.Location;
+
 import java.util.Scanner;
 
 import java.util.List;
@@ -22,6 +37,16 @@ public class SystemService {
     private RestTemplate restTemplate;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private OfferingService offeringService;
+    @Autowired
+    private LessonService lessonService;
+    @Autowired
+    private InstructorService instructorService;
+    @Autowired
+    private TimeSlotService timeSlotService;
+    @Autowired
+    private LocationService locationService;
 
     public void displayAllLessons() {
         // Call the controller method directly (not recommended, though works)
@@ -79,4 +104,37 @@ public class SystemService {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    public void displayActiveOfferings() {
+        // Retrieve all offerings
+        List<OfferingDto> allOfferings = offeringService.getAllOfferings();
+
+        // Filter for active offerings
+        List<OfferingDto> activeOfferings = allOfferings.stream()
+                .filter(OfferingDto::isAvailable)
+                .toList();
+
+        // Display active offerings with full details
+        if (!activeOfferings.isEmpty()) {
+            System.out.println("Active Offerings:");
+            activeOfferings.forEach(offering -> {
+                // Retrieve detailed information for each associated entity using their IDs
+                LessonDto lesson = lessonService.getLessonById(offering.getLessonId());
+                InstructorDto instructor = instructorService.getInstructorById(offering.getInstructorId());
+                TimeSlotDto timeSlot = timeSlotService.getTimeSlotById(offering.getTimeSlotId());
+                LocationDto location = locationService.getLocationById(offering.getLocationId());
+
+                // Display the detailed information
+                System.out.println("Offering ID: " + offering.getId() +
+                        "\nLesson: " + lesson.getName() +
+                        "\nInstructor: " + instructor.getFirstname() + " " + instructor.getLastname() +
+                        "\nTime Slot: " + timeSlot.getStartTime() + " - " + timeSlot.getEndTime() +
+                        "\nLocation: " + location.getCity() + " - " + location.getName() +
+                        "\nAvailable: " + offering.isAvailable() + "\n");
+            });
+        } else {
+            System.out.println("No active offerings found.");
+        }
+    }
+
 }

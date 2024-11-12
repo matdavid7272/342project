@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class OfferingServiceImpl implements OfferingService {
 
     private final OfferingRepository offeringRepository;
-    private final OfferingMapper offeringMapper;  // Inject OfferingMapper
+    private final OfferingMapper offeringMapper; // Inject OfferingMapper
 
     @Override
     public OfferingDto createOffering(OfferingDto offeringDto) {
@@ -65,7 +65,7 @@ public class OfferingServiceImpl implements OfferingService {
 
         // Convert updated DTO to entity using injected OfferingMapper
         Offering updatedOffering = offeringMapper.mapToOffering(updatedOfferingDto);
-        updatedOffering.setId(id);  // Ensure the updated offering has the correct ID
+        updatedOffering.setId(id); // Ensure the updated offering has the correct ID
 
         // Save the updated offering
         Offering savedOffering = offeringRepository.save(updatedOffering);
@@ -81,4 +81,5 @@ public class OfferingServiceImpl implements OfferingService {
                 .map(offeringMapper::mapToOfferingDto)
                 .collect(Collectors.toList());
     }
+
 }
