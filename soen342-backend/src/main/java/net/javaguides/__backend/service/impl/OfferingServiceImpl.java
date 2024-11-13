@@ -2,11 +2,14 @@ package net.javaguides.__backend.service.impl;
 
 import lombok.AllArgsConstructor;
 import net.javaguides.__backend.dto.OfferingDto;
+import net.javaguides.__backend.entity.Instructor;
 import net.javaguides.__backend.entity.Offering;
 import net.javaguides.__backend.Mapper.OfferingMapper;
 import net.javaguides.__backend.exception.ResourceNotFoundException;
+import net.javaguides.__backend.repository.InstructorRepository;
 import net.javaguides.__backend.repository.OfferingRepository;
 import net.javaguides.__backend.service.OfferingService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,24 +21,57 @@ import java.util.stream.Collectors;
 public class OfferingServiceImpl implements OfferingService {
 
     private final OfferingRepository offeringRepository;
-    private final OfferingMapper offeringMapper; // Inject OfferingMapper
+    private final OfferingMapper offeringMapper;
+    private final InstructorRepository instructorRepository;
+
+    @Override
+    @Transactional
+    public boolean registerInstructorForOffering(Long instructorId, Long offeringId) {
+        // Fetch the Instructor
+        Optional<Instructor> instructorOptional = instructorRepository.findById(instructorId);
+        if (!instructorOptional.isPresent()) {
+            throw new RuntimeException("Instructor not found.");
+        }
+        Instructor instructor = instructorOptional.get();
+
+        // Fetch the Offering
+        Optional<Offering> offeringOptional = offeringRepository.findById(offeringId);
+        if (!offeringOptional.isPresent()) {
+            throw new RuntimeException("Offering not found.");
+        }
+        Offering offering = offeringOptional.get();
+
+        // Check if the offering is available
+        if (!offering.isAvailable()) {
+            throw new RuntimeException("Offering is not available.");
+        }
+
+        // Check if the offering already has an instructor (if you want to enforce only
+        // one instructor per offering)
+        if (offering.getInstructor() != null) {
+            return false; // Offering already has an instructor
+        }
+
+        // Assign the instructor to the offering
+        offering.setInstructor(instructor);
+
+        // Save the updated Offering entity
+        offeringRepository.save(offering);
+
+        return true;
+    }
 
     @Override
     public OfferingDto createOffering(OfferingDto offeringDto) {
-        // Convert OfferingDto to Offering entity using injected OfferingMapper
         Offering offering = offeringMapper.mapToOffering(offeringDto);
-        // Save the offering entity
         Offering savedOffering = offeringRepository.save(offering);
-        // Convert saved offering back to DTO
         return offeringMapper.mapToOfferingDto(savedOffering);
     }
 
     @Override
     public OfferingDto getOfferingById(Long offeringId) {
-        // Try to find the offering by ID
         Optional<Offering> offeringOptional = offeringRepository.findById(offeringId);
         if (!offeringOptional.isPresent()) {
-            // Handle case where offering is not found
             throw new ResourceNotFoundException("Offering with id " + offeringId + " does not exist");
         }
         Offering offering = offeringOptional.get();
@@ -44,39 +80,38 @@ public class OfferingServiceImpl implements OfferingService {
 
     @Override
     public void deleteOffering(Long id) {
-        // Try to find the offering by ID
         Optional<Offering> offeringOptional = offeringRepository.findById(id);
         if (!offeringOptional.isPresent()) {
-            // Handle case where offering is not found
             throw new ResourceNotFoundException("Offering with id " + id + " does not exist");
         }
-        // Delete the found offering
         offeringRepository.delete(offeringOptional.get());
     }
 
     @Override
     public OfferingDto updateOffering(Long id, OfferingDto updatedOfferingDto) {
-        // Try to find the offering by ID
         Optional<Offering> existingOfferingOptional = offeringRepository.findById(id);
         if (!existingOfferingOptional.isPresent()) {
-            // Handle case where offering is not found
             throw new ResourceNotFoundException("Offering with id " + id + " does not exist");
         }
 
-        // Convert updated DTO to entity using injected OfferingMapper
         Offering updatedOffering = offeringMapper.mapToOffering(updatedOfferingDto);
-        updatedOffering.setId(id); // Ensure the updated offering has the correct ID
+        updatedOffering.setId(id);
 
-        // Save the updated offering
         Offering savedOffering = offeringRepository.save(updatedOffering);
         return offeringMapper.mapToOfferingDto(savedOffering);
     }
 
     @Override
     public List<OfferingDto> getAllOfferings() {
-        // Get all offerings from the repository
         List<Offering> offerings = offeringRepository.findAll();
-        // Convert offerings to DTOs and return as a list
+        return offerings.stream()
+                .map(offeringMapper::mapToOfferingDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OfferingDto> getOfferingsByInstructorId(Long instructorId) {
+        List<Offering> offerings = offeringRepository.findByInstructorId(instructorId);
         return offerings.stream()
                 .map(offeringMapper::mapToOfferingDto)
                 .collect(Collectors.toList());
