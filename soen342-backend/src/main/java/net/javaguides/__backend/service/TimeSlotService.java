@@ -1,7 +1,6 @@
 package net.javaguides.__backend.service;
 
 import net.javaguides.__backend.dto.TimeSlotDto;
-import net.javaguides.__backend.entity.TimeSlot;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package net.javaguides.__backend.service;
 
 import net.javaguides.__backend.dto.UserDto;
-import net.javaguides.__backend.entity.User;
 
 import java.util.List;
 

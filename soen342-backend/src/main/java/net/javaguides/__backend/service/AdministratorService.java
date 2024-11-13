@@ -1,7 +1,6 @@
 package net.javaguides.__backend.service;
 
 import net.javaguides.__backend.dto.AdministratorDto;
-import net.javaguides.__backend.entity.Administrator;
 
 import java.util.List;
 

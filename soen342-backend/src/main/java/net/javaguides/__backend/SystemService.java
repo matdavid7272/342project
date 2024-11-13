@@ -5,9 +5,6 @@ import net.javaguides.__backend.dto.LessonDto;
 import net.javaguides.__backend.dto.LocationDto;
 import net.javaguides.__backend.dto.OfferingDto;
 import net.javaguides.__backend.dto.TimeSlotDto;
-import net.javaguides.__backend.entity.Instructor;
-import net.javaguides.__backend.entity.Lesson;
-import net.javaguides.__backend.entity.TimeSlot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +14,12 @@ import net.javaguides.__backend.dto.ClientDto;
 import net.javaguides.__backend.dto.GuardianDto;
 import net.javaguides.__backend.dto.InstructorDto;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.RestTemplate;
 import net.javaguides.__backend.service.ClientService;
 import net.javaguides.__backend.service.OfferingService;
 import net.javaguides.__backend.service.LessonService;
 import net.javaguides.__backend.service.InstructorService;
 import net.javaguides.__backend.service.TimeSlotService;
 import net.javaguides.__backend.service.LocationService;
-import net.javaguides.__backend.entity.Location;
 import net.javaguides.__backend.service.GuardianService;
 import net.javaguides.__backend.service.BookingService;
 
@@ -38,8 +32,6 @@ public class SystemService {
 
     @Autowired
     private LessonController lessonController;
-    @Autowired
-    private RestTemplate restTemplate;
     @Autowired
     private ClientService clientService;
     @Autowired
@@ -459,6 +451,29 @@ public class SystemService {
             return;
         }
 
+        boolean hasOfferings = instructorService.hasOfferings(instructorId); // This is a method you'll need to
+                                                                             // implement
+        if (hasOfferings) {
+            System.out
+                    .println("Instructor has dependent offerings. Do you want to delete all related offerings? (y/n)");
+            String response = scanner.nextLine();
+            if ("y".equalsIgnoreCase(response)) {
+                // Step 2: Delete dependent records (bookings)
+                try {
+                    instructorService.deleteOfferingsByInstructorId(instructorId);
+                    System.out.println("Related offerings deleted successfully!");
+                } catch (Exception e) {
+                    System.out.println("Error deleting related offerings: " + e.getMessage());
+                    return; // Exit if there's an issue with deleting bookings
+                }
+            } else {
+                // Optionally, allow updating bookings to dissociate them
+                System.out.println("Related offerings will not be deleted.");
+                return;
+            }
+        }
+
+        // Step 3: Proceed to delete the client after handling dependencies
         try {
             instructorService.deleteInstructor(instructorId);
             System.out.println("Instructor deleted successfully!");

@@ -3,11 +3,15 @@ package net.javaguides.__backend.service.impl;
 import lombok.AllArgsConstructor;
 import net.javaguides.__backend.dto.InstructorDto;
 import net.javaguides.__backend.entity.Instructor;
+import net.javaguides.__backend.entity.Offering;
 import net.javaguides.__backend.Mapper.InstructorMapper;
 import net.javaguides.__backend.exception.ResourceNotFoundException;
 import net.javaguides.__backend.repository.InstructorRepository;
+import net.javaguides.__backend.repository.OfferingRepository;
 import net.javaguides.__backend.service.InstructorService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import net.javaguides.__backend.repository.BookingRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +22,9 @@ import java.util.stream.Collectors;
 public class InstructorServiceImpl implements InstructorService {
 
     private final InstructorRepository instructorRepository;
-    private final InstructorMapper instructorMapper;  // Inject InstructorMapper
+    private final InstructorMapper instructorMapper; // Inject InstructorMapper
+    private final OfferingRepository offeringRepository;
+    private final BookingRepository bookingRepository;
 
     @Override
     public InstructorDto createInstructor(InstructorDto instructorDto) {
@@ -71,8 +77,10 @@ public class InstructorServiceImpl implements InstructorService {
             throw new ResourceNotFoundException("Instructor with id " + id + " does not exist");
         }
 
-        // Check if another instructor with the same email exists (excluding the current one)
-        Optional<Instructor> instructorWithSameEmail = instructorRepository.findByEmail(updatedInstructorDto.getEmail());
+        // Check if another instructor with the same email exists (excluding the current
+        // one)
+        Optional<Instructor> instructorWithSameEmail = instructorRepository
+                .findByEmail(updatedInstructorDto.getEmail());
         if (instructorWithSameEmail.isPresent() && !instructorWithSameEmail.get().getId().equals(id)) {
             throw new ResourceNotFoundException("Email Duplicate");
         }
@@ -94,5 +102,23 @@ public class InstructorServiceImpl implements InstructorService {
         return instructors.stream()
                 .map(instructorMapper::mapToInstructorDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean hasOfferings(Long instructorId) {
+        return offeringRepository.existsByInstructorId(instructorId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteOfferingsByInstructorId(Long instructorId) {
+        List<Offering> offerings = offeringRepository.findByInstructorId(instructorId);
+
+        // Delete bookings for each offering first, then delete the offering itself
+        offerings.forEach(offering -> {
+            bookingRepository.deleteByOfferingId(offering.getId());
+            offeringRepository.delete(offering); // Delete each offering individually
+        });
+
     }
 }

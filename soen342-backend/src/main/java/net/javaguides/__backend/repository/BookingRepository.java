@@ -21,4 +21,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Transactional
     void deleteByClientId(Long clientId);
+
+    @Transactional
+    void deleteByOfferingId(Long offeringId);
 }

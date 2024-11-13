@@ -1,7 +1,6 @@
 package net.javaguides.__backend.service;
 
 import net.javaguides.__backend.dto.OfferingDto;
-import net.javaguides.__backend.entity.Offering;
 
 import java.util.List;
 

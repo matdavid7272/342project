@@ -1,7 +1,6 @@
 package net.javaguides.__backend.service;
 
 import net.javaguides.__backend.dto.ScheduleDto;
-import net.javaguides.__backend.entity.Schedule;
 
 import java.util.List;
 
