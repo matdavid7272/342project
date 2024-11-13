@@ -42,7 +42,7 @@ public class OfferingServiceImpl implements OfferingService {
         Offering offering = offeringOptional.get();
 
         // Check if the offering is available
-        if (!offering.isAvailable()) {
+        if (offering.isAvailable()) {
             throw new RuntimeException("Offering is not available.");
         }
 
@@ -54,6 +54,7 @@ public class OfferingServiceImpl implements OfferingService {
 
         // Assign the instructor to the offering
         offering.setInstructor(instructor);
+        offering.setAvailable(true);
 
         // Save the updated Offering entity
         offeringRepository.save(offering);

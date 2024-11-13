@@ -5,6 +5,10 @@ import net.javaguides.__backend.dto.LessonDto;
 import net.javaguides.__backend.dto.LocationDto;
 import net.javaguides.__backend.dto.OfferingDto;
 import net.javaguides.__backend.dto.TimeSlotDto;
+import net.javaguides.__backend.entity.Instructor;
+import net.javaguides.__backend.entity.Lesson;
+import net.javaguides.__backend.entity.TimeSlot;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
@@ -533,13 +537,23 @@ public class SystemService {
         offeringDto.setAvailable(isAvailable);
 
         try {
+            // Create offering
             OfferingDto newOffering = offeringService.createOffering(offeringDto);
+
+            // Fetch related data for display
+            LessonDto lesson = lessonService.getLessonById(lessonId);
+            InstructorDto instructor = instructorService.getInstructorById(instructorId);
+            TimeSlotDto timeSlot = timeSlotService.getTimeSlotById(timeSlotId);
+            LocationDto location = locationService.getLocationById(locationId);
+
+            // Display the offering details with related information
             System.out.println("New offering added successfully!");
             System.out.println("Offering ID: " + newOffering.getId());
-            System.out.println("Lesson ID: " + newOffering.getLessonId());
-            System.out.println("Instructor ID: " + newOffering.getInstructorId());
-            System.out.println("Time Slot ID: " + newOffering.getTimeSlotId());
-            System.out.println("Location ID: " + newOffering.getLocationId());
+            System.out.println("Lesson Name: " + lesson.getName());
+            System.out.println("Instructor: " + instructor.getFirstname() + " " + instructor.getLastname());
+            System.out.println("Location: " + location.getName());
+            System.out.println("Start Time: " + timeSlot.getStartTime());
+            System.out.println("End Time: " + timeSlot.getEndTime());
             System.out.println("Available: " + newOffering.isAvailable());
         } catch (Exception e) {
             System.out.println("Error adding offering: " + e.getMessage());
