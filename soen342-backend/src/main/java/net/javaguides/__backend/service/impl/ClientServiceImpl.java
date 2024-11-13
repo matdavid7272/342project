@@ -5,9 +5,11 @@ import net.javaguides.__backend.dto.ClientDto;
 import net.javaguides.__backend.entity.Client;
 import net.javaguides.__backend.Mapper.ClientMapper;
 import net.javaguides.__backend.exception.ResourceNotFoundException;
+import net.javaguides.__backend.repository.BookingRepository;
 import net.javaguides.__backend.repository.ClientRepository;
 import net.javaguides.__backend.service.ClientService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +21,7 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper; // Inject ClientMapper
+    private final BookingRepository bookingRepository;
 
     @Override
     public ClientDto createClient(ClientDto clientDto) {
@@ -111,4 +114,14 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.mapToClientDto(clientOptional.get());
     }
 
+    @Override
+    public Boolean hasBookings(Long clientId) {
+        return bookingRepository.existsByClientId(clientId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteBookingsByClientId(Long clientId) {
+        bookingRepository.deleteByClientId(clientId);
+    }
 }

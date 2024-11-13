@@ -100,9 +100,10 @@ public class Application implements CommandLineRunner {
 		System.out.println("3. View All Guardians");
 		System.out.println("4. Delete a Client Account");
 		System.out.println("5. Delete an Instructor Account");
-		System.out.println("6. Add New Offering");
-		System.out.println("7. View All Bookings");
-		System.out.println("8. Return to Main Menu");
+		System.out.println("6. Delete a Guardian Account");
+		System.out.println("7. Add New Offering");
+		System.out.println("8. View All Bookings");
+		System.out.println("9. Return to Main Menu");
 
 		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
@@ -113,9 +114,10 @@ public class Application implements CommandLineRunner {
 			case 3 -> systemService.viewAllGuardians();
 			case 4 -> systemService.deleteClient(scanner);
 			case 5 -> systemService.deleteInstructor(scanner);
-			case 6 -> systemService.addNewOffering(scanner);
-			case 7 -> systemService.viewAllBookings();
-			case 8 -> System.out.println("Returning to Main Menu");
+			case 6 -> systemService.deleteGuardian(scanner);
+			case 7 -> systemService.addNewOffering(scanner);
+			case 8 -> systemService.viewAllBookings();
+			case 9 -> System.out.println("Returning to Main Menu");
 			default -> System.out.println("Invalid choice. Please try again.");
 		}
 	}

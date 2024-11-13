@@ -407,11 +407,84 @@ public class SystemService {
     }
 
     public void deleteClient(Scanner scanner) {
+        System.out.print("Enter Client ID to delete: ");
+        Long clientId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline character
 
+        ClientDto client = clientService.getClientById(clientId);
+
+        if (client == null) {
+            System.out.println("Client not found!");
+            return;
+        }
+
+        boolean hasBookings = clientService.hasBookings(clientId); // This is a method you'll need to implement
+        if (hasBookings) {
+            System.out.println("Client has dependent bookings. Do you want to delete all related bookings? (y/n)");
+            String response = scanner.nextLine();
+            if ("y".equalsIgnoreCase(response)) {
+                // Step 2: Delete dependent records (bookings)
+                try {
+                    clientService.deleteBookingsByClientId(clientId);
+                    System.out.println("Related bookings deleted successfully!");
+                } catch (Exception e) {
+                    System.out.println("Error deleting related bookings: " + e.getMessage());
+                    return; // Exit if there's an issue with deleting bookings
+                }
+            } else {
+                // Optionally, allow updating bookings to dissociate them
+                System.out.println("Related bookings will not be deleted.");
+                return;
+            }
+        }
+
+        // Step 3: Proceed to delete the client after handling dependencies
+        try {
+            clientService.deleteClient(clientId);
+            System.out.println("Client deleted successfully!");
+        } catch (Exception e) {
+            System.out.println("Error deleting client: " + e.getMessage());
+        }
     }
 
     public void deleteInstructor(Scanner scanner) {
+        System.out.print("Enter Instructor ID to delete: ");
+        Long instructorId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline character
 
+        InstructorDto instructor = instructorService.getInstructorById(instructorId);
+
+        if (instructor == null) {
+            System.out.println("Instructor not found!");
+            return;
+        }
+
+        try {
+            instructorService.deleteInstructor(instructorId);
+            System.out.println("Instructor deleted successfully!");
+        } catch (Exception e) {
+            System.out.println("Error deleting instructor: " + e.getMessage());
+        }
+    }
+
+    public void deleteGuardian(Scanner scanner) {
+        System.out.print("Enter Guardian ID to delete: ");
+        Long guardianId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline character
+
+        GuardianDto guardian = guardianService.getGuardianById(guardianId);
+
+        if (guardian == null) {
+            System.out.println("Guardian not found!");
+            return;
+        }
+
+        try {
+            guardianService.deleteGuardian(guardianId);
+            System.out.println("Guardian deleted successfully!");
+        } catch (Exception e) {
+            System.out.println("Error deleting guardian: " + e.getMessage());
+        }
     }
 
     public void addNewOffering(Scanner scanner) {
