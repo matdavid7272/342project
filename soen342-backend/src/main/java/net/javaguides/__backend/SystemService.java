@@ -304,7 +304,7 @@ public class SystemService {
     }
 
     public void viewMyBookings(Scanner scanner) {
-        System.out.println("Enter ID: ");
+        System.out.print("Enter ID: ");
         Long clientId = scanner.nextLong();
 
         List<BookingDto> clientBookings = bookingService.getBookingsByClientId(clientId);
@@ -328,7 +328,35 @@ public class SystemService {
     }
 
     public void cancelBooking(Scanner scanner) {
+        System.out.print("Enter Booking ID to cancel: ");
+        Long bookingId = scanner.nextLong();
+        scanner.nextLine();
 
+        BookingDto booking = bookingService.getBookingById(bookingId);
+
+        if (booking == null) {
+            System.out.println("Booking not found!");
+            return;
+        }
+
+        if (!booking.isActive()) {
+            System.out.println("Booking is already cancelled.");
+            return;
+        }
+
+        // Proceed to cancel the booking
+        booking.setActive(false); // Mark booking as inactive
+        try {
+            // Update the booking status in the service layer
+            BookingDto updatedBooking = bookingService.updateBooking(bookingId, booking);
+            System.out.println("Booking cancelled successfully!");
+            System.out.println("Booking Details:");
+            System.out.println("Client ID: " + updatedBooking.getClientId());
+            System.out.println("Offering ID: " + updatedBooking.getOfferingId());
+            System.out.println("Active: " + updatedBooking.isActive());
+        } catch (Exception e) {
+            System.out.println("Error cancelling booking: " + e.getMessage());
+        }
     }
 
 }
