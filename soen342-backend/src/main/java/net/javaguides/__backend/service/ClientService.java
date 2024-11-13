@@ -15,5 +15,7 @@ public interface ClientService {
 
     ClientDto updateClient(Long id, ClientDto clientDto);
 
+    ClientDto getClientByEmail(String email);
+
     List<ClientDto> getAllClients();
 }

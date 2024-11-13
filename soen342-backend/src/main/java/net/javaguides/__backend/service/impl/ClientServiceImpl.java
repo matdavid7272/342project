@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
-    private final ClientMapper clientMapper;  // Inject ClientMapper
+    private final ClientMapper clientMapper; // Inject ClientMapper
 
     @Override
     public ClientDto createClient(ClientDto clientDto) {
@@ -71,7 +71,8 @@ public class ClientServiceImpl implements ClientService {
             throw new ResourceNotFoundException("Client with id " + id + " does not exist");
         }
 
-        // Check if another client with the same email exists (excluding the current one)
+        // Check if another client with the same email exists (excluding the current
+        // one)
         Optional<Client> clientWithSameEmail = clientRepository.findByEmail(updatedClientDto.getEmail());
         if (clientWithSameEmail.isPresent() && !clientWithSameEmail.get().getId().equals(id)) {
             throw new ResourceNotFoundException("Email Duplicate");
@@ -95,4 +96,19 @@ public class ClientServiceImpl implements ClientService {
                 .map(clientMapper::mapToClientDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ClientDto getClientByEmail(String email) {
+        // Retrieve the client by email using clientRepository
+        Optional<Client> clientOptional = clientRepository.findByEmail(email);
+
+        // If the client is not found, throw a custom exception
+        if (!clientOptional.isPresent()) {
+            throw new ResourceNotFoundException("Client with email " + email + " not found");
+        }
+
+        // Convert the found client entity to ClientDto and return it
+        return clientMapper.mapToClientDto(clientOptional.get());
+    }
+
 }

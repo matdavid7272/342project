@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class GuardianServiceImpl implements GuardianService {
 
     private final GuardianRepository guardianRepository;
-    private final GuardianMapper guardianMapper;  // Inject GuardianMapper
+    private final GuardianMapper guardianMapper; // Inject GuardianMapper
 
     @Override
     public GuardianDto createGuardian(GuardianDto guardianDto) {
@@ -71,7 +71,8 @@ public class GuardianServiceImpl implements GuardianService {
             throw new ResourceNotFoundException("Guardian with id " + id + " does not exist");
         }
 
-        // Check if another guardian with the same email exists (excluding the current one)
+        // Check if another guardian with the same email exists (excluding the current
+        // one)
         Optional<Guardian> guardianWithSameEmail = guardianRepository.findByEmail(updatedGuardianDto.getEmail());
         if (guardianWithSameEmail.isPresent() && !guardianWithSameEmail.get().getId().equals(id)) {
             throw new ResourceNotFoundException("Email Duplicate");
@@ -94,5 +95,18 @@ public class GuardianServiceImpl implements GuardianService {
         return guardians.stream()
                 .map(guardianMapper::mapToGuardianDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public GuardianDto getGuardianByEmail(String guardianEmail) {
+        // Try to find the guardian by ID
+        Optional<Guardian> guardianOptional = guardianRepository.findByEmail(guardianEmail);
+        if (!guardianOptional.isPresent()) {
+            // Handle case where guardian is not found
+            System.out.println("Guardian with email " + guardianEmail + " does not exist.");
+            return null;
+        }
+        Guardian guardian = guardianOptional.get();
+        return guardianMapper.mapToGuardianDto(guardian);
     }
 }

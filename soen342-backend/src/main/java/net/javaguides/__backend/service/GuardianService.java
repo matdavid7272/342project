@@ -11,6 +11,8 @@ public interface GuardianService {
 
     GuardianDto getGuardianById(Long guardianId);
 
+    GuardianDto getGuardianByEmail(String email);
+
     void deleteGuardian(Long id);
 
     GuardianDto updateGuardian(Long id, GuardianDto guardianDto);

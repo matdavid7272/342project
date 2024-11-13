@@ -11,7 +11,10 @@ import net.javaguides.__backend.entity.TimeSlot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
+
+import net.javaguides.__backend.dto.BookingDto;
 import net.javaguides.__backend.dto.ClientDto;
+import net.javaguides.__backend.dto.GuardianDto;
 import net.javaguides.__backend.dto.InstructorDto;
 
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,8 @@ import net.javaguides.__backend.service.InstructorService;
 import net.javaguides.__backend.service.TimeSlotService;
 import net.javaguides.__backend.service.LocationService;
 import net.javaguides.__backend.entity.Location;
+import net.javaguides.__backend.service.GuardianService;
+import net.javaguides.__backend.service.BookingService;
 
 import java.util.Scanner;
 
@@ -47,6 +52,10 @@ public class SystemService {
     private TimeSlotService timeSlotService;
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private GuardianService guardianService;
+    @Autowired
+    private BookingService bookingService;
 
     public void displayAllLessons() {
         // Call the controller method directly (not recommended, though works)
@@ -134,6 +143,79 @@ public class SystemService {
             });
         } else {
             System.out.println("No active offerings found.");
+        }
+    }
+
+    public void makeBooking(Scanner scanner) {
+        System.out.print("Enter client email: ");
+        String clientEmail = scanner.nextLine();
+
+        // Retrieve the client details by email
+        ClientDto client = clientService.getClientByEmail(clientEmail);
+        if (client == null) {
+            System.out.println("Client not found!");
+            return;
+        }
+
+        GuardianDto guardian = null; // Will hold the guardian's details if required
+        if (client.getAge() < 18) {
+            System.out.println("Client is under 18. A guardian's approval is required.");
+            System.out.print("Enter guardian email: ");
+            String guardianEmail = scanner.nextLine();
+
+            // Check if the guardian already exists by email
+            guardian = guardianService.getGuardianByEmail(guardianEmail);
+
+            if (guardian == null) {
+                // If the guardian doesn't exist, register them
+                System.out.println("Guardian not found. Please register the guardian.");
+                System.out.print("Enter guardian first name: ");
+                String guardianFirstName = scanner.nextLine();
+
+                System.out.print("Enter guardian last name: ");
+                String guardianLastName = scanner.nextLine();
+
+                System.out.print("Enter guardian's age: ");
+                int guardianAge = scanner.nextInt();
+
+                // Create a new GuardianDto object
+                GuardianDto newGuardian = new GuardianDto();
+                newGuardian.setFirstname(guardianFirstName);
+                newGuardian.setLastname(guardianLastName);
+                newGuardian.setEmail(guardianEmail);
+                newGuardian.setAge(guardianAge);
+
+                // Save the new guardian
+                guardian = guardianService.createGuardian(newGuardian);
+                System.out.println("Guardian registered successfully!");
+            }
+            System.out.println("Guardian: " + guardian.getFirstname() + " " + guardian.getLastname());
+        }
+
+        System.out.print("Enter offering ID to book: ");
+        Long offeringId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline character
+
+        OfferingDto offering = offeringService.getOfferingById(offeringId);
+        if (offering == null) {
+            System.out.println("Offering not found!");
+            return;
+        }
+
+        BookingDto bookingDto = new BookingDto();
+        bookingDto.setClientId(client.getId()); // Using the client's ID
+        bookingDto.setOfferingId(offeringId);
+        bookingDto.setActive(true);
+
+        try {
+            BookingDto createdBooking = bookingService.createBooking(bookingDto);
+            System.out.println("Booking created successfully!");
+            System.out.println("Booking Details:");
+            System.out.println("Client ID: " + createdBooking.getClientId());
+            System.out.println("Offering ID: " + createdBooking.getOfferingId());
+            System.out.println("Active: " + createdBooking.isActive());
+        } catch (Exception e) {
+            System.out.println("Error creating booking: " + e.getMessage());
         }
     }
 
