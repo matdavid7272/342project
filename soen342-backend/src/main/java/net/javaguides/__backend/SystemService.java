@@ -503,11 +503,70 @@ public class SystemService {
     }
 
     public void addNewOffering(Scanner scanner) {
+        System.out.println("Enter the following offering details:");
 
+        System.out.print("Lesson ID: ");
+        long lessonId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        System.out.print("Instructor ID: ");
+        long instructorId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        System.out.print("Time Slot ID: ");
+        long timeSlotId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        System.out.print("Location ID: ");
+        long locationId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        System.out.print("Is this offering available? (true/false): ");
+        boolean isAvailable = scanner.nextBoolean();
+        scanner.nextLine(); // Consume newline
+
+        OfferingDto offeringDto = new OfferingDto();
+        offeringDto.setLessonId(lessonId);
+        offeringDto.setInstructorId(instructorId);
+        offeringDto.setTimeSlotId(timeSlotId);
+        offeringDto.setLocationId(locationId);
+        offeringDto.setAvailable(isAvailable);
+
+        try {
+            OfferingDto newOffering = offeringService.createOffering(offeringDto);
+            System.out.println("New offering added successfully!");
+            System.out.println("Offering ID: " + newOffering.getId());
+            System.out.println("Lesson ID: " + newOffering.getLessonId());
+            System.out.println("Instructor ID: " + newOffering.getInstructorId());
+            System.out.println("Time Slot ID: " + newOffering.getTimeSlotId());
+            System.out.println("Location ID: " + newOffering.getLocationId());
+            System.out.println("Available: " + newOffering.isAvailable());
+        } catch (Exception e) {
+            System.out.println("Error adding offering: " + e.getMessage());
+        }
     }
 
     public void viewAllBookings() {
+        List<BookingDto> allBookings = bookingService.getAllBookings();
 
+        if (!allBookings.isEmpty()) {
+            System.out.println("All Bookings:");
+            allBookings.forEach(booking -> {
+                OfferingDto offering = offeringService.getOfferingById(booking.getOfferingId());
+                LessonDto lesson = lessonService.getLessonById(offering.getLessonId());
+                TimeSlotDto timeSlot = timeSlotService.getTimeSlotById(offering.getTimeSlotId());
+                LocationDto location = locationService.getLocationById(offering.getLocationId());
+
+                System.out.println("Booking ID: " + booking.getId() +
+                        "\nClient ID: " + booking.getClientId() +
+                        "\nLesson: " + lesson.getName() +
+                        "\nTime Slot: " + timeSlot.getStartTime() + " - " + timeSlot.getEndTime() +
+                        "\nLocation: " + location.getCity() + " - " + location.getName() +
+                        "\nActive: " + booking.isActive() + "\n");
+            });
+        } else {
+            System.out.println("No bookings found.");
+        }
     }
 
 }
