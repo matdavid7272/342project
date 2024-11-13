@@ -137,4 +137,88 @@ public class SystemService {
         }
     }
 
+    public void createInstructor(Scanner scanner) {
+        System.out.println("Please enter the following instructor details:");
+        System.out.print("First Name: ");
+        String firstName = scanner.nextLine();
+
+        System.out.print("Last Name: ");
+        String lastName = scanner.nextLine();
+
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Specialization: ");
+        String specialization = scanner.nextLine();
+
+        InstructorDto instructorDto = new InstructorDto();
+        instructorDto.setFirstname(firstName);
+        instructorDto.setLastname(lastName);
+        instructorDto.setEmail(email);
+        instructorDto.setSpecialization(specialization);
+
+        try {
+            InstructorDto savedInstructor = instructorService.createInstructor(instructorDto);
+            System.out.println("\nInstructor created successfully!");
+            System.out.println("Instructor ID: " + savedInstructor.getId());
+            System.out.println("Name: " + savedInstructor.getFirstname() + " " + savedInstructor.getLastname());
+            System.out.println("Email: " + savedInstructor.getEmail());
+            System.out.println("Specialization: " + savedInstructor.getSpecialization());
+        } catch (RuntimeException e) {
+            System.out.println("Error creating instructor: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Register an instructor for a specific offering.
+     */
+    public void registerOffering(Scanner scanner) {
+        System.out.print("Enter Instructor ID: ");
+        long instructorId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        System.out.print("Enter Offering ID: ");
+        long offeringId = scanner.nextLong();
+        scanner.nextLine(); // Consume newline
+
+        try {
+            boolean registrationSuccess = offeringService.registerInstructorForOffering(instructorId, offeringId);
+            if (registrationSuccess) {
+                System.out.println("Instructor successfully registered for the offering.");
+            } else {
+                System.out.println(
+                        "Registration failed. Offering may be unavailable or instructor may already be registered.");
+            }
+        } catch (RuntimeException e) {
+            System.out.println("Error during registration: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Display offerings assigned to a specific instructor.
+     */
+    public void viewMyOfferings() {
+        System.out.print("Enter Instructor ID: ");
+        long instructorId = new Scanner(System.in).nextLong();
+
+        List<OfferingDto> instructorOfferings = offeringService.getOfferingsByInstructorId(instructorId);
+
+        if (!instructorOfferings.isEmpty()) {
+            System.out.println("Offerings for Instructor ID " + instructorId + ":");
+            instructorOfferings.forEach(offering -> {
+                LessonDto lesson = lessonService.getLessonById(offering.getLessonId());
+                TimeSlotDto timeSlot = timeSlotService.getTimeSlotById(offering.getTimeSlotId());
+                LocationDto location = locationService.getLocationById(offering.getLocationId());
+
+                System.out.println("Offering ID: " + offering.getId() +
+                        "\nLesson: " + lesson.getName() +
+                        "\nTime Slot: " + timeSlot.getStartTime() + " - " + timeSlot.getEndTime() +
+                        "\nLocation: " + location.getCity() + " - " + location.getName() +
+                        "\nAvailable: " + offering.isAvailable() + "\n");
+            });
+        } else {
+            System.out.println("No offerings found for Instructor ID " + instructorId + ".");
+        }
+    }
+
 }

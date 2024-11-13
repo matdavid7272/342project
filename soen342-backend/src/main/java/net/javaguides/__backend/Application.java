@@ -66,4 +66,26 @@ public class Application implements CommandLineRunner {
 			default -> System.out.println("Invalid choice. Please try again.");
 		}
 	}
+
+	private void instructorMenu(Scanner scanner) {
+		System.out.println("===== Instructor Menu =====");
+		System.out.println("1. Create Instructor");
+		System.out.println("2. View Available Offerings");
+		System.out.println("3. Register for an Offering");
+		System.out.println("4. View My Offerings");
+		System.out.println("5. Return to Main Menu");
+
+		int option = scanner.nextInt();
+		scanner.nextLine();
+
+		switch (option) {
+			case 1 -> systemService.createInstructor(scanner);
+			case 2 -> systemService.displayActiveOfferings();
+			case 3 -> systemService.registerOffering(scanner);
+			case 4 -> systemService.viewMyOfferings();
+			case 5 -> System.out.println("Returning to Main Menu");
+			default -> System.out.println("Invalid choice. Please try again.");
+		}
+	}
+
 }

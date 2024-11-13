@@ -17,4 +17,8 @@ public interface OfferingService {
 
     List<OfferingDto> getAllOfferings();
 
+    // Add the method signature for fetching offerings by instructor ID
+    List<OfferingDto> getOfferingsByInstructorId(Long instructorId);
+
+    boolean registerInstructorForOffering(Long instructorId, Long offeringId);
 }
