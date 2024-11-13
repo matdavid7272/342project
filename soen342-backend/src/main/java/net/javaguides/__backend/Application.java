@@ -97,11 +97,12 @@ public class Application implements CommandLineRunner {
 		System.out.println("===== Administrator Menu =====");
 		System.out.println("1. View All Clients");
 		System.out.println("2. View All Instructors");
-		System.out.println("3. Delete a Client Account");
-		System.out.println("4. Delete an Instructor Account");
-		System.out.println("5. Add New Offering");
-		System.out.println("6. View All Bookings");
-		System.out.println("7. Return to Main Menu");
+		System.out.println("3. View All Guardians");
+		System.out.println("4. Delete a Client Account");
+		System.out.println("5. Delete an Instructor Account");
+		System.out.println("6. Add New Offering");
+		System.out.println("7. View All Bookings");
+		System.out.println("8. Return to Main Menu");
 
 		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
@@ -109,11 +110,12 @@ public class Application implements CommandLineRunner {
 		switch (option) {
 			case 1 -> systemService.viewAllClients();
 			case 2 -> systemService.viewAllInstructors();
-			case 3 -> systemService.deleteClient(scanner);
-			case 4 -> systemService.deleteInstructor(scanner);
-			case 5 -> systemService.addNewOffering(scanner);
-			case 6 -> systemService.viewAllBookings();
-			case 7 -> System.out.println("Returning to Main Menu");
+			case 3 -> systemService.viewAllGuardians();
+			case 4 -> systemService.deleteClient(scanner);
+			case 5 -> systemService.deleteInstructor(scanner);
+			case 6 -> systemService.addNewOffering(scanner);
+			case 7 -> systemService.viewAllBookings();
+			case 8 -> System.out.println("Returning to Main Menu");
 			default -> System.out.println("Invalid choice. Please try again.");
 		}
 	}

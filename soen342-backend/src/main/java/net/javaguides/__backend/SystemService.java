@@ -376,7 +376,34 @@ public class SystemService {
     }
 
     public void viewAllInstructors() {
+        List<InstructorDto> allInstructors = instructorService.getAllInstructors();
 
+        if (!allInstructors.isEmpty()) {
+            System.out.println("All Instructors:");
+            allInstructors.forEach(instructor -> {
+                System.out.println("ID: " + instructor.getId() +
+                        ", Name: " + instructor.getFirstname() + " " + instructor.getLastname() +
+                        ", Specialization: " + instructor.getSpecialization() +
+                        ", Email: " + instructor.getEmail());
+            });
+        } else {
+            System.out.println("No instructors found.");
+        }
+    }
+
+    public void viewAllGuardians() {
+        List<GuardianDto> allGuardians = guardianService.getAllGuardians();
+
+        if (!allGuardians.isEmpty()) {
+            System.out.println("All Instructors:");
+            allGuardians.forEach(instructor -> {
+                System.out.println("ID: " + instructor.getId() +
+                        ", Name: " + instructor.getFirstname() + " " + instructor.getLastname() +
+                        ", Email: " + instructor.getEmail());
+            });
+        } else {
+            System.out.println("No instructors found.");
+        }
     }
 
     public void deleteClient(Scanner scanner) {
