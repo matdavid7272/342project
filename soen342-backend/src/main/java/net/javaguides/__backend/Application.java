@@ -37,6 +37,7 @@ public class Application implements CommandLineRunner {
 				case 1 -> systemService.displayAllLessons();
 				case 2 -> clientMenu(scanner);
 				case 3 -> instructorMenu(scanner);
+				case 4 -> administratorMenu(scanner);
 				case 5 -> {
 					System.out.println("Exiting...");
 					scanner.close();
@@ -57,8 +58,8 @@ public class Application implements CommandLineRunner {
 		System.out.println("5. Cancel a Booking");
 		System.out.println("6. Return to Main Menu");
 
+		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
-		scanner.nextLine();
 
 		switch (option) {
 			case 1 -> systemService.registerClient(scanner);
@@ -79,8 +80,8 @@ public class Application implements CommandLineRunner {
 		System.out.println("4. View My Offerings");
 		System.out.println("5. Return to Main Menu");
 
+		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
-		scanner.nextLine();
 
 		switch (option) {
 			case 1 -> systemService.createInstructor(scanner);
@@ -88,6 +89,31 @@ public class Application implements CommandLineRunner {
 			case 3 -> systemService.registerOffering(scanner);
 			case 4 -> systemService.viewMyOfferings(scanner);
 			case 5 -> System.out.println("Returning to Main Menu");
+			default -> System.out.println("Invalid choice. Please try again.");
+		}
+	}
+
+	private void administratorMenu(Scanner scanner) {
+		System.out.println("===== Administrator Menu =====");
+		System.out.println("1. View All Clients");
+		System.out.println("2. View All Instructors");
+		System.out.println("3. Delete a Client Account");
+		System.out.println("4. Delete an Instructor Account");
+		System.out.println("5. Add New Offering");
+		System.out.println("6. View All Bookings");
+		System.out.println("7. Return to Main Menu");
+
+		System.out.print("Select an option: ");
+		int option = scanner.nextInt();
+
+		switch (option) {
+			case 1 -> systemService.viewAllClients();
+			case 2 -> systemService.viewAllInstructors();
+			case 3 -> systemService.deleteClient(scanner);
+			case 4 -> systemService.deleteInstructor(scanner);
+			case 5 -> systemService.addNewOffering(scanner);
+			case 6 -> systemService.viewAllBookings();
+			case 7 -> System.out.println("Returning to Main Menu");
 			default -> System.out.println("Invalid choice. Please try again.");
 		}
 	}

@@ -359,4 +359,40 @@ public class SystemService {
         }
     }
 
+    public void viewAllClients() {
+        List<ClientDto> allClients = clientService.getAllClients();
+
+        if (!allClients.isEmpty()) {
+            System.out.println("All Clients:");
+            allClients.forEach(client -> {
+                System.out.println("ID: " + client.getId() +
+                        ", Name: " + client.getFirstname() + " " + client.getLastname() +
+                        ", Email: " + client.getEmail() +
+                        ", Age: " + client.getAge());
+            });
+        } else {
+            System.out.println("No clients found.");
+        }
+    }
+
+    public void viewAllInstructors() {
+
+    }
+
+    public void deleteClient(Scanner scanner) {
+
+    }
+
+    public void deleteInstructor(Scanner scanner) {
+
+    }
+
+    public void addNewOffering(Scanner scanner) {
+
+    }
+
+    public void viewAllBookings() {
+
+    }
+
 }
