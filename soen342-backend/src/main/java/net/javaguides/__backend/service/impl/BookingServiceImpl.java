@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-    private final BookingMapper bookingMapper;  // Inject BookingMapper
+    private final BookingMapper bookingMapper; // Inject BookingMapper
 
     @Override
     public BookingDto createBooking(BookingDto bookingDto) {
@@ -65,7 +65,7 @@ public class BookingServiceImpl implements BookingService {
 
         // Convert updated DTO to entity using injected BookingMapper
         Booking updatedBooking = bookingMapper.mapToBooking(updatedBookingDto);
-        updatedBooking.setId(id);  // Ensure the updated booking has the correct ID
+        updatedBooking.setId(id); // Ensure the updated booking has the correct ID
 
         // Save the updated booking
         Booking savedBooking = bookingRepository.save(updatedBooking);
@@ -81,4 +81,21 @@ public class BookingServiceImpl implements BookingService {
                 .map(bookingMapper::mapToBookingDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<BookingDto> getBookingsByClientId(Long clientId) {
+        // Get all bookings by clientId from the repository
+        List<Booking> bookings = bookingRepository.findByClientId(clientId);
+
+        // If no bookings are found, you might want to handle that case. For example:
+        if (bookings.isEmpty()) {
+            throw new ResourceNotFoundException("No bookings found for client with id " + clientId);
+        }
+
+        // Convert the list of Booking entities to a list of BookingDto objects
+        return bookings.stream()
+                .map(bookingMapper::mapToBookingDto)
+                .collect(Collectors.toList());
+    }
+
 }

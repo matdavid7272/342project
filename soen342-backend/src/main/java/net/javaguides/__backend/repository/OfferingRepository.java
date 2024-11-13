@@ -11,5 +11,5 @@ public interface OfferingRepository extends JpaRepository<Offering, Long> {
     // Add the method to fetch offerings by instructorId
     List<Offering> findByInstructorId(Long instructorId);
 
-    Offering findByIdAndInstructorsId(Long id, Long instructorId);
+    Offering findByIdAndInstructorId(Long id, Long instructorId);
 }

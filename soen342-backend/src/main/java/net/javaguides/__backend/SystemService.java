@@ -279,9 +279,9 @@ public class SystemService {
     /**
      * Display offerings assigned to a specific instructor.
      */
-    public void viewMyOfferings() {
+    public void viewMyOfferings(Scanner scanner) {
         System.out.print("Enter Instructor ID: ");
-        long instructorId = new Scanner(System.in).nextLong();
+        long instructorId = scanner.nextLong();
 
         List<OfferingDto> instructorOfferings = offeringService.getOfferingsByInstructorId(instructorId);
 
@@ -301,6 +301,34 @@ public class SystemService {
         } else {
             System.out.println("No offerings found for Instructor ID " + instructorId + ".");
         }
+    }
+
+    public void viewMyBookings(Scanner scanner) {
+        System.out.println("Enter ID: ");
+        Long clientId = scanner.nextLong();
+
+        List<BookingDto> clientBookings = bookingService.getBookingsByClientId(clientId);
+
+        if (!clientBookings.isEmpty()) {
+            System.out.println("Bookings for Client ID " + clientId + ":");
+            clientBookings.forEach(booking -> {
+                OfferingDto offering = offeringService.getOfferingById(booking.getOfferingId());
+                LessonDto lesson = lessonService.getLessonById(offering.getLessonId());
+                TimeSlotDto timeSlot = timeSlotService.getTimeSlotById(offering.getTimeSlotId());
+                LocationDto location = locationService.getLocationById(offering.getLocationId());
+
+                System.out.println("Booking ID: " + booking.getId() +
+                        "\nLesson name: " + lesson.getName() +
+                        "\nTime Slot: " + timeSlot.getStartTime() + " - " + timeSlot.getEndTime() +
+                        "\nLocation: " + location.getCity() + " - " + location.getName());
+            });
+        } else {
+            System.out.println("No bookings found for Client Id " + clientId + ".");
+        }
+    }
+
+    public void cancelBooking(Scanner scanner) {
+
     }
 
 }

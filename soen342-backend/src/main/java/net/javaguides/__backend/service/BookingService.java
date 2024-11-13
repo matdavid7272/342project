@@ -9,6 +9,8 @@ public interface BookingService {
 
     BookingDto getBookingById(Long bookingId);
 
+    List<BookingDto> getBookingsByClientId(Long clientId);
+
     void deleteBooking(Long id);
 
     BookingDto updateBooking(Long id, BookingDto bookingDto);

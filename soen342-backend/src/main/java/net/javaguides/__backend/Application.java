@@ -36,6 +36,7 @@ public class Application implements CommandLineRunner {
 			switch (option) {
 				case 1 -> systemService.displayAllLessons();
 				case 2 -> clientMenu(scanner);
+				case 3 -> instructorMenu(scanner);
 				case 5 -> {
 					System.out.println("Exiting...");
 					scanner.close();
@@ -63,6 +64,8 @@ public class Application implements CommandLineRunner {
 			case 1 -> systemService.registerClient(scanner);
 			case 2 -> systemService.displayActiveOfferings();
 			case 3 -> systemService.makeBooking(scanner);
+			case 4 -> systemService.viewMyBookings(scanner);
+			case 5 -> systemService.cancelBooking(scanner);
 			case 6 -> System.out.println("Returning to Main Menu");
 			default -> System.out.println("Invalid choice. Please try again.");
 		}
@@ -83,7 +86,7 @@ public class Application implements CommandLineRunner {
 			case 1 -> systemService.createInstructor(scanner);
 			case 2 -> systemService.displayActiveOfferings();
 			case 3 -> systemService.registerOffering(scanner);
-			case 4 -> systemService.viewMyOfferings();
+			case 4 -> systemService.viewMyOfferings(scanner);
 			case 5 -> System.out.println("Returning to Main Menu");
 			default -> System.out.println("Invalid choice. Please try again.");
 		}
