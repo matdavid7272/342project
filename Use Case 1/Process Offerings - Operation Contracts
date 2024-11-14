@@ -81,3 +81,13 @@ Postconditions:
 
 User can now try to do something with Offerings db
 
+Contract:
+
+Operation: Exist
+Cross Reference:   ssd_ProcessOfferings
+Preconditions: offering already exist
+
+Postconditions:
+
+return a boolean true if the offer already exist
+
