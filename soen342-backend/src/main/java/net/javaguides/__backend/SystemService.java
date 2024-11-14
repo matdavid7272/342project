@@ -5,9 +5,6 @@ import net.javaguides.__backend.dto.LessonDto;
 import net.javaguides.__backend.dto.LocationDto;
 import net.javaguides.__backend.dto.OfferingDto;
 import net.javaguides.__backend.dto.TimeSlotDto;
-import net.javaguides.__backend.entity.Instructor;
-import net.javaguides.__backend.entity.Lesson;
-import net.javaguides.__backend.entity.TimeSlot;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +25,7 @@ import net.javaguides.__backend.service.GuardianService;
 import net.javaguides.__backend.service.BookingService;
 
 import java.util.Scanner;
-
+import java.util.stream.Collectors;
 import java.util.List;
 
 @Service
@@ -70,19 +67,18 @@ public class SystemService {
     }
 
     public void registerClient(Scanner scanner) {
-        System.out.println("Please enter the following client details:");
         System.out.print("First Name: ");
-        String firstName = scanner.nextLine();
+        String firstName = scanner.nextLine(); // Use nextLine() to read full name with spaces
 
         System.out.print("Last Name: ");
-        String lastName = scanner.nextLine();
+        String lastName = scanner.nextLine(); // Use nextLine() for full name
 
         System.out.print("Email: ");
-        String email = scanner.nextLine();
+        String email = scanner.nextLine(); // Use nextLine() to read full email
 
         System.out.print("Age: ");
         int age = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character after int input
+        scanner.nextLine(); // Consume newline character after nextInt()
 
         // Create a new ClientDto object with the input
         ClientDto clientDto = new ClientDto();
@@ -272,6 +268,36 @@ public class SystemService {
         }
     }
 
+    public void instructorViewOfferings() {
+        // Retrieve all offerings
+        List<OfferingDto> allOfferings = offeringService.getAllOfferings();
+
+        // Filter for active offerings
+        List<OfferingDto> activeOfferings = allOfferings.stream()
+                .filter(offering -> !offering.isAvailable())
+                .collect(Collectors.toList());
+
+        // Display active offerings with full details
+        if (!activeOfferings.isEmpty()) {
+            System.out.println("Active Offerings:");
+            activeOfferings.forEach(offering -> {
+                // Retrieve detailed information for each associated entity using their IDs
+                LessonDto lesson = lessonService.getLessonById(offering.getLessonId());
+                TimeSlotDto timeSlot = timeSlotService.getTimeSlotById(offering.getTimeSlotId());
+                LocationDto location = locationService.getLocationById(offering.getLocationId());
+
+                // Display the detailed information
+                System.out.println("Offering ID: " + offering.getId() +
+                        "\nLesson: " + lesson.getName() +
+                        "\nTime Slot: " + timeSlot.getStartTime() + " - " + timeSlot.getEndTime() +
+                        "\nLocation: " + location.getCity() + " - " + location.getName() +
+                        "\nAvailable: " + offering.isAvailable() + "\n");
+            });
+        } else {
+            System.out.println("No active offerings found.");
+        }
+    }
+
     /**
      * Display offerings assigned to a specific instructor.
      */
@@ -300,7 +326,7 @@ public class SystemService {
     }
 
     public void viewMyBookings(Scanner scanner) {
-        System.out.print("Enter ID: ");
+        System.out.print("Enter Client ID: ");
         Long clientId = scanner.nextLong();
 
         List<BookingDto> clientBookings = bookingService.getBookingsByClientId(clientId);
@@ -514,8 +540,17 @@ public class SystemService {
         scanner.nextLine(); // Consume newline
 
         System.out.print("Instructor ID: ");
-        long instructorId = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        String instructorIdInput = scanner.nextLine().trim();
+        Long instructorId = null; // Use Long wrapper to allow null values
+
+        if (!instructorIdInput.equalsIgnoreCase("null")) {
+            try {
+                instructorId = Long.parseLong(instructorIdInput); // Convert to Long if it's a number
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric ID or 'null'.");
+                // Optionally handle this error (e.g., prompt again or exit the method)
+            }
+        }
 
         System.out.print("Time Slot ID: ");
         long timeSlotId = scanner.nextLong();

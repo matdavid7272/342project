@@ -20,4 +20,5 @@ public class Instructor extends User {
         super(id, lastname, firstname, email, age);
         this.specialization = specialization;
     }
+
 }

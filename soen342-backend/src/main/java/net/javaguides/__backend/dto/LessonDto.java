@@ -16,6 +16,7 @@ public class LessonDto {
     private String name;
     private int duration;
 
-    @Column(name = "is_group") // Ensure the field name matches the entity column name
-    private boolean isGroup;  // Change to match entity class
+    // @Column(name = "is_group") // Ensure the field name matches the entity column
+    // name
+    private boolean isGroup; // Change to match entity class
 }

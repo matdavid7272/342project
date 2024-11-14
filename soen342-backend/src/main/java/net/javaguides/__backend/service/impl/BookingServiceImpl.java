@@ -12,90 +12,113 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Service
 @AllArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
-    private final BookingMapper bookingMapper; // Inject BookingMapper
+    private final BookingMapper bookingMapper;
+
+    // ReadWriteLock to manage access to the shared resource
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     @Override
     public BookingDto createBooking(BookingDto bookingDto) {
-        // Convert BookingDto to Booking entity using injected BookingMapper
-        Booking booking = bookingMapper.mapToBooking(bookingDto);
-        // Save the booking entity
-        Booking savedBooking = bookingRepository.save(booking);
-        // Convert saved booking back to DTO
-        return bookingMapper.mapToBookingDto(savedBooking);
+        lock.writeLock().lock(); // Acquire the write lock
+
+        try {
+            Booking booking = bookingMapper.mapToBooking(bookingDto);
+            Booking savedBooking = bookingRepository.save(booking);
+            return bookingMapper.mapToBookingDto(savedBooking);
+        } finally {
+            lock.writeLock().unlock(); // Release the write lock
+        }
     }
 
     @Override
     public BookingDto getBookingById(Long bookingId) {
-        // Try to find the booking by ID
-        Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
-        if (!bookingOptional.isPresent()) {
-            // Handle case where booking is not found
-            throw new ResourceNotFoundException("Booking with id " + bookingId + " does not exist");
+        lock.readLock().lock(); // Acquire the read lock
+
+        try {
+            Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
+            if (!bookingOptional.isPresent()) {
+                throw new ResourceNotFoundException("Booking with id " + bookingId + " does not exist");
+            }
+            Booking booking = bookingOptional.get();
+            return bookingMapper.mapToBookingDto(booking);
+        } finally {
+            lock.readLock().unlock(); // Release the read lock
         }
-        Booking booking = bookingOptional.get();
-        return bookingMapper.mapToBookingDto(booking);
     }
 
     @Override
     public void deleteBooking(Long id) {
-        // Try to find the booking by ID
-        Optional<Booking> bookingOptional = bookingRepository.findById(id);
-        if (!bookingOptional.isPresent()) {
-            // Handle case where booking is not found
-            throw new ResourceNotFoundException("Booking with id " + id + " does not exist");
+        lock.writeLock().lock(); // Acquire the write lock
+
+        try {
+            Optional<Booking> bookingOptional = bookingRepository.findById(id);
+            if (!bookingOptional.isPresent()) {
+                throw new ResourceNotFoundException("Booking with id " + id + " does not exist");
+            }
+            bookingRepository.delete(bookingOptional.get());
+        } finally {
+            lock.writeLock().unlock(); // Release the write lock
         }
-        // Delete the found booking
-        bookingRepository.delete(bookingOptional.get());
     }
 
     @Override
     public BookingDto updateBooking(Long id, BookingDto updatedBookingDto) {
-        // Try to find the booking by ID
-        Optional<Booking> existingBookingOptional = bookingRepository.findById(id);
-        if (!existingBookingOptional.isPresent()) {
-            // Handle case where booking is not found
-            throw new ResourceNotFoundException("Booking with id " + id + " does not exist");
+        lock.writeLock().lock(); // Acquire the write lock
+
+        try {
+            Optional<Booking> existingBookingOptional = bookingRepository.findById(id);
+            if (!existingBookingOptional.isPresent()) {
+                throw new ResourceNotFoundException("Booking with id " + id + " does not exist");
+            }
+
+            Booking updatedBooking = bookingMapper.mapToBooking(updatedBookingDto);
+            updatedBooking.setId(id); // Ensure the updated booking has the correct ID
+
+            Booking savedBooking = bookingRepository.save(updatedBooking);
+            return bookingMapper.mapToBookingDto(savedBooking);
+        } finally {
+            lock.writeLock().unlock(); // Release the write lock
         }
-
-        // Convert updated DTO to entity using injected BookingMapper
-        Booking updatedBooking = bookingMapper.mapToBooking(updatedBookingDto);
-        updatedBooking.setId(id); // Ensure the updated booking has the correct ID
-
-        // Save the updated booking
-        Booking savedBooking = bookingRepository.save(updatedBooking);
-        return bookingMapper.mapToBookingDto(savedBooking);
     }
 
     @Override
     public List<BookingDto> getAllBookings() {
-        // Get all bookings from the repository
-        List<Booking> bookings = bookingRepository.findAll();
-        // Convert bookings to DTOs and return as a list
-        return bookings.stream()
-                .map(bookingMapper::mapToBookingDto)
-                .collect(Collectors.toList());
+        lock.readLock().lock(); // Acquire the read lock
+
+        try {
+            List<Booking> bookings = bookingRepository.findAll();
+            return bookings.stream()
+                    .map(bookingMapper::mapToBookingDto)
+                    .collect(Collectors.toList());
+        } finally {
+            lock.readLock().unlock(); // Release the read lock
+        }
     }
 
     @Override
     public List<BookingDto> getBookingsByClientId(Long clientId) {
-        // Get all bookings by clientId from the repository
-        List<Booking> bookings = bookingRepository.findByClientId(clientId);
+        lock.readLock().lock(); // Acquire the read lock
 
-        // If no bookings are found, you might want to handle that case. For example:
-        if (bookings.isEmpty()) {
-            throw new ResourceNotFoundException("No bookings found for client with id " + clientId);
+        try {
+            List<Booking> bookings = bookingRepository.findByClientId(clientId);
+
+            if (bookings.isEmpty()) {
+                throw new ResourceNotFoundException("No bookings found for client with id " + clientId);
+            }
+
+            return bookings.stream()
+                    .map(bookingMapper::mapToBookingDto)
+                    .collect(Collectors.toList());
+        } finally {
+            lock.readLock().unlock(); // Release the read lock
         }
-
-        // Convert the list of Booking entities to a list of BookingDto objects
-        return bookings.stream()
-                .map(bookingMapper::mapToBookingDto)
-                .collect(Collectors.toList());
     }
-
 }

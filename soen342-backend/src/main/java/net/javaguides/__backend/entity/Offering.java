@@ -23,7 +23,7 @@ public class Offering {
     private Lesson lesson;
 
     @ManyToOne
-    @JoinColumn(name = "instructor_id")
+    @JoinColumn(name = "instructor_id", nullable = true)
     private Instructor instructor;
 
     @OneToOne

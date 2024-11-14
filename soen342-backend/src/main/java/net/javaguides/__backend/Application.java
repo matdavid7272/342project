@@ -32,6 +32,7 @@ public class Application implements CommandLineRunner {
 
 			System.out.print("Select an option: ");
 			int option = scanner.nextInt();
+			scanner.nextLine();
 
 			switch (option) {
 				case 1 -> systemService.displayAllLessons();
@@ -60,6 +61,7 @@ public class Application implements CommandLineRunner {
 
 		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
+		scanner.nextLine();
 
 		switch (option) {
 			case 1 -> systemService.registerClient(scanner);
@@ -82,10 +84,11 @@ public class Application implements CommandLineRunner {
 
 		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
+		scanner.nextLine();
 
 		switch (option) {
 			case 1 -> systemService.createInstructor(scanner);
-			case 2 -> systemService.displayActiveOfferings();
+			case 2 -> systemService.instructorViewOfferings();
 			case 3 -> systemService.registerOffering(scanner);
 			case 4 -> systemService.viewMyOfferings(scanner);
 			case 5 -> System.out.println("Returning to Main Menu");
@@ -107,6 +110,7 @@ public class Application implements CommandLineRunner {
 
 		System.out.print("Select an option: ");
 		int option = scanner.nextInt();
+		scanner.nextLine();
 
 		switch (option) {
 			case 1 -> systemService.viewAllClients();
