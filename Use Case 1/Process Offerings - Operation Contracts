@@ -1,15 +1,5 @@
 Contract:
 
-Operation:SelectOfferings
-Cross Reference: ssd_ProcessOfferings
-Preconditions:A user is trying to read a offering
-
-Postconditions:
--The administrator can view an offering
-
-
-Contract:
-
 Operation: AddOffering
 Cross Reference:  ssd_ProcessOfferings
 Preconditions:Administrator has information for a new offering
@@ -80,14 +70,4 @@ Preconditions: User wishes to interact with Offerings db
 Postconditions:
 
 User can now try to do something with Offerings db
-
-Contract:
-
-Operation: Exist
-Cross Reference:   ssd_ProcessOfferings
-Preconditions: offering already exist
-
-Postconditions:
-
-return a boolean true if the offer already exist
 
