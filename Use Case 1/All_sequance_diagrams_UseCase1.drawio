@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0" version="24.8.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0" version="24.8.6">
   <diagram name="Page-1" id="BVtC-Wyuu0O_u82IhjVZ">
     <mxGraphModel dx="1826" dy="791" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="#000000" math="0" shadow="0">
       <root>
@@ -139,7 +139,7 @@
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-31" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:Administrator&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="167" y="808" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-32" value="&lt;font color=&quot;#ffffff&quot;&gt;AddOffering(&lt;/font&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;Location, Timeslot, Type&lt;/span&gt;&lt;font color=&quot;#ffffff&quot;&gt;)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-32" value="&lt;font color=&quot;#ffffff&quot;&gt;AddOffering(OfferingDetails&lt;/font&gt;&lt;font color=&quot;#ffffff&quot;&gt;)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="8" y="887" width="189" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-33" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" parent="1" edge="1">
@@ -160,7 +160,7 @@
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-36" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:LessonOfferingDB&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="308" y="808" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-37" value="&lt;font color=&quot;#ffffff&quot;&gt;CreateOffering(&lt;/font&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;Location, Timeslot, Type)&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-37" value="&lt;font color=&quot;#ffffff&quot;&gt;CreateOffering(OfferingDetails&lt;/font&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;)&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="213" y="932" width="135" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-38" value="&lt;font color=&quot;#ffffff&quot;&gt;AddOffering(L)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
@@ -211,7 +211,7 @@
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-49" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:Administrator&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="167" y="1460" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-50" value="&lt;font color=&quot;#ffffff&quot;&gt;ReadOffering(Offering id)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-50" value="&lt;font color=&quot;#ffffff&quot;&gt;ReadOffering(OfferingId)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="8" y="1539" width="189" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-51" value="" style="endArrow=classic;html=1;rounded=0;strokeColor=#FFFFFF;" parent="1" edge="1">
@@ -232,7 +232,7 @@
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-54" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:LessonOfferingDB&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="308" y="1460" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-55" value="&lt;font color=&quot;#ffffff&quot;&gt;FindOffering(Description)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-55" value="&lt;font color=&quot;#ffffff&quot;&gt;FindOffering(OfferingId)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="213" y="1584" width="135" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-56" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
@@ -310,7 +310,7 @@
             <mxPoint x="181.13" y="2202" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-72" value="&lt;font color=&quot;#ffffff&quot;&gt;SelectOfferring(Location, Timeslot, Type)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-72" value="&lt;font color=&quot;#ffffff&quot;&gt;SelectOfferring(OfferinId)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="-32" y="2171" width="214.13" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-73" value="" style="endArrow=none;dashed=1;html=1;rounded=0;strokeColor=#FFFFFF;" parent="1" edge="1">
@@ -343,7 +343,7 @@
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-79" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:LessonOfferingDB&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="292.13" y="2092" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-80" value="&lt;font color=&quot;#ffffff&quot;&gt;FindOffering(&lt;/font&gt;&lt;span style=&quot;color: rgb(255, 255, 255);&quot;&gt;Location, Timeslot, Type&lt;/span&gt;&lt;font color=&quot;#ffffff&quot;&gt;)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-80" value="&lt;font color=&quot;#ffffff&quot;&gt;FindOffering(OfferingId&lt;/font&gt;&lt;font color=&quot;#ffffff&quot;&gt;)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="197.13" y="2216" width="135" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-81" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
@@ -400,7 +400,7 @@
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-92" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;u&gt;:LessonOfferingDB&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="270.26" y="2473" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="HHSnTfPOIRJ8PouTAjJy-93" value="&lt;font color=&quot;#ffffff&quot;&gt;SelectOffering(Description)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="HHSnTfPOIRJ8PouTAjJy-93" value="&lt;font color=&quot;#ffffff&quot;&gt;SelectOffering(OfferingId)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="175.26" y="2597" width="135" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HHSnTfPOIRJ8PouTAjJy-94" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
