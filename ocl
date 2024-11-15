@@ -1,0 +1,20 @@
+context offering
+
+Inv: self.offerring → forAll(s1,s2 : offering | s1.timeslot <> s2.timeslot or s1.day <> s2.day or 
+s1.location <> s2.location)
+
+
+context client
+
+Inv: self.client.age<18 implies exist(self.guardian) 
+
+
+context offering
+
+self.instructor.availabilities->includes(self.city)
+
+
+context offering
+
+self.bookings->forAll(b1, b2 | 
+b1 <> b2 implies (b1.day <> b2.day or b1.timeSlot <> b2.timeSlot) )
