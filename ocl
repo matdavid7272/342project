@@ -6,15 +6,15 @@ s1.location <> s2.location)
 
 context client
 
-Inv: self.client.age<18 implies exist(self.guardian) 
+Inv: self.age<18 implies self.guardian → notEmpty()
 
 
 context offering
 
-self.instructor.availabilities->includes(self.city)
+Inv: self.instructor.availabilities->includes(self.city)
 
 
-context offering
+context client
 
-self.bookings->forAll(b1, b2 | 
+Inv: self.bookings->forAll(b1, b2 | 
 b1 <> b2 implies (b1.day <> b2.day or b1.timeSlot <> b2.timeSlot) )
