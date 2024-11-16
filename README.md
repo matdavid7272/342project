@@ -13,3 +13,6 @@ Section H
 Mohamed Sanoko (40250945); msanoko5@gmail.com
 
 David Mateus (40247018); matdavid7272@gmail.com
+
+### Link to the video
+link to video (if version uploaded doesn't work): https://youtu.be/mf2tlAgAcX0
